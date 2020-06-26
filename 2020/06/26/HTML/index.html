@@ -1,0 +1,85 @@
+<!DOCTYPE html><html lang="Chinese"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#0078E7"><meta name="author" content="TheSun"><meta name="copyright" content="TheSun"><meta name="generator" content="Hexo 4.2.1"><meta name="theme" content="hexo-theme-yun"><title>HTML | TheSun的博客</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;family=Source+Code+Pro&amp;display=swap" media="none" onload="this.media='all'"><script src="//at.alicdn.com/t/font_1140697_stqaphw3j4.js" async></script><script src="https://cdn.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>document.addEventListener("DOMContentLoaded", () => {
+  [".post-card",".post-content img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+});
+</script><link rel="shortcut icon" type="image/svg+xml" href="/yun.svg"><link rel="mask-icon" href="/yun.svg" color="#0078E7"><link rel="alternate icon" href="/yun.ico"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="preload" href="/js/utils.js" as="script"><link rel="preload" href="/js/hexo-theme-yun.js" as="script"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="stylesheet" href="/css/hexo-theme-yun.css"><link rel="alternate" href="/atom.xml" title="TheSun的博客"><script id="yun-config">
+    const Yun = window.Yun || {};
+    window.CONFIG = {"root":"/","title":"STuhne","version":"0.9.1","anonymous_image":"https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/avatar/none.jpg","say":{"api":"https://v1.hitokoto.cn","hitokoto":true},"fireworks":{"colors":["102, 167, 221","62, 131, 225","33, 78, 194"]}};
+  </script><meta name="description" content="html html概述  超文本标记语言，有自己的语法规则，由不同的标签组成，不同的标签表示不同的意义，比如图片、链接、表格等，浏览器可以识别html，目前绝大部分网页都是html写的  html结构  文件名xxx.html  &lt;!DOCTYPE HTML&gt;：html5文档声明 &lt;html&gt;：根标签，所有的内容都要写到根标签中 &lt;head&gt;：存放html的基本">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTML">
+<meta property="og:url" content="http://www.sfim.xyz/2020/06/26/HTML/index.html">
+<meta property="og:site_name" content="TheSun的博客">
+<meta property="og:description" content="html html概述  超文本标记语言，有自己的语法规则，由不同的标签组成，不同的标签表示不同的意义，比如图片、链接、表格等，浏览器可以识别html，目前绝大部分网页都是html写的  html结构  文件名xxx.html  &lt;!DOCTYPE HTML&gt;：html5文档声明 &lt;html&gt;：根标签，所有的内容都要写到根标签中 &lt;head&gt;：存放html的基本">
+<meta property="article:published_time" content="2020-06-26T02:07:43.000Z">
+<meta property="article:modified_time" content="2020-06-26T02:19:46.357Z">
+<meta property="article:author" content="TheSun">
+<meta property="article:tag" content="HTML">
+<meta property="article:tag" content="学习笔记">
+<meta name="twitter:card" content="summary"><script src="/js/ui/mode.js"></script><link rel="alternate" href="/atom.xml" title="TheSun的博客" type="application/atom+xml">
+</head><body><script defer src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script defer src="/js/ui/fireworks.js"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script defer src="/js/sidebar.js"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="Table of Contents"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-list-ordered"></use></svg></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="Overview"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-passport-line"></use></svg></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="TheSun"><img width="96" loading="lazy" src="/Yun.png" alt="TheSun"></a><div class="site-author-name"><a href="/about/">TheSun</a></div><a class="site-name" href="/about/site.html">TheSun的博客</a><sub class="site-subtitle"></sub><div class="site-desciption">学无止境</div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="Home"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-home-4-line"></use></svg></span></a><div class="site-state-item"><a href="/archives/" title="Archives"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-archive-line"></use></svg></span><span class="site-state-item-count">8</span></a></div><div class="site-state-item"><a href="/categories/" title="Categories"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-2-line"></use></svg></span><span class="site-state-item-count">7</span></a></div><div class="site-state-item"><a href="/tags/" title="Tags"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="site-state-item-count">8</span></a></div><a class="site-state-item hty-icon-button" href="https://yun.yunyoujun.cn" target="_blank" rel="noopener" title="文档"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-settings-line"></use></svg></span></a></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="/atom.xml" title="RSS" target="_blank" style="color:orange"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-rss-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://github.com/1031646184" title="GitHub" target="_blank" style="color:#6e5494"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-github-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://weibo.com/u/6399499096" title="微博" target="_blank" style="color:#E6162D"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-weibo-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://music.163.com/#/user/home?id=418451782" title="网易云音乐" target="_blank" style="color:#C20C0C"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-netease-cloud-music-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://space.bilibili.com/160964508" title="哔哩哔哩" target="_blank" style="color:#FF8EB3"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-bilibili-line"></use></svg></a></div><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="我的小伙伴们" style="color:dodgerblue"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-genderless-line"></use></svg></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-contrast-2-line"></use></svg></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#html"><span class="toc-number">1.</span> <span class="toc-text">html</span></a></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="post-block" itemscope itemtype="https://schema.org/Article"><link itemprop="mainEntityOfPage" href="http://www.sfim.xyz/2020/06/26/HTML/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="TheSun"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="TheSun的博客"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">HTML</h1><div class="post-meta"><div class="post-time" style="display:inline-block"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-line"></use></svg></span> <time title="Created: 2020-06-26 10:07:43" itemprop="dateCreated datePublished" datetime="2020-06-26T10:07:43+08:00">2020-06-26</time></div><div class="post-classify"><span class="post-category"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-line"></use></svg></span> <span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category" href="/categories/HTML/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">HTML</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag" href="/tags/HTML/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="tag-name">HTML</span></a><a class="tag" href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="tag-name">学习笔记</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content post-markdown"><h3 id="html"><a href="#html" class="headerlink" title="html"></a>html</h3><ul>
+<li><p>html概述<br/><br>  超文本标记语言，有自己的语法规则，由不同的标签组成，不同的标签表示不同的意义，比如图片、链接、表格等，浏览器可以识别html，目前绝大部分网页都是html写的</p>
+</li>
+<li><p>html结构</p>
+</li>
+<li><p>文件名xxx.html</p>
+<ul>
+<li>&lt;!DOCTYPE HTML&gt;：html5文档声明</li>
+<li>&lt;html&gt;：根标签，所有的内容都要写到根标签中</li>
+<li>&lt;head&gt;：存放html的基本信息，例如标签，编码等</li>
+<li>&lt;body&gt;：存放页面的数据，在页面可以直接显示</li>
+<li>&lt;meta&gt;：告诉浏览器用哪个编码读取html文档</li>
+<li>&lt;title&gt;：网页的标题</li>
+</ul>
+</li>
+<li><p>html语法</p>
+<ul>
+<li>html是标记语言，标记也叫标签、元素，标签分为开始标签和结束标签</li>
+<li>自闭标签：如果标签内没有内容，可以合并为自闭标签，如：&lt;meta/&gt;&lt;br/&gt;&lt;hr/&gt;</li>
+<li>注释： &lt;!– 注释内容 –&gt;</li>
+<li>换行和空格：在html中，多个空格和换行会合并为一个空格，</li>
+<li>如果想要换行，可以通过&lt;br/&gt;代替，空格用&amp;nbsp;代替</li>
+<li>属性：在一个标签上可以添加多个属性，属性之间用空格隔开，属性的格式为key=”value”<br><a id="htmlbiaoqian"></a></li>
+</ul>
+</li>
+<li><p>html标签</p>
+<ul>
+<li>文本标签&lt;font&gt;&lt;/font&gt; <br/><br>  用来包裹文本内容</li>
+<li>标题标签&lt;h1&gt;-&lt;h6&gt; <br/><br>  从h1-h6依次变小  <br/><br>  属性align：居中</li>
+<li>列表标签&lt;ul&gt;\ &lt;li&gt;  <br/><br>  ul：定义一个列表  <br/><br>  li：定义列表中的每一项</li>
+<li>图片标签&lt;img …/&gt;  <br/><br>  src属性：图片的路径 <br/><br>  相对路径：从当前文档所在位置查找目标文件，../表示上级目录，./表示当前目录<br>  绝对路径：从盘符开始的路径 <br/><br>  width、height：宽、高，单位是像素 <br/><br>  alt属性：当图片无法显示时，显示的文本 <br/></li>
+<li>超链接标签&lt;a&gt;<br>  href属性：超链接跳转的url地址 <br/><br>  target属性：在何处打开目标url，_blank表示在新页面打开，_self表示当前页面打开，_top回到顶部 <br/></li>
+<li>表格标签&lt;table&gt;\&lt;tr&gt;\&lt;td&gt;<br>  table：定义一个表格 <br/><br>  tr：定义一行 <br/><br>  td：定义一个单元格，表头可以使用th代替 <br/><br>  colspan属性：横跨多列 <br/><br><a id="biaodanbiaoqian"></a></li>
+</ul>
+</li>
+<li><p>表单标签&lt;form&gt;</p>
+<ul>
+<li>action属性：必须存在的属性，指表单提交的目的地</li>
+<li>method属性：可选，决定了提交方式，默认是- get提交，可以指定为post <br/><br>get提交：直接将参数拼接到地址栏，拼接格式为：<br><a href="http://www.tmooc.cn/?username=zhangsan&amp;gender=m&amp;hoby=lanqiu&amp;hoby=ppq&amp;city=guangzhou&amp;valistr=1234" target="_blank" rel="noopener">http://www.tmooc.cn/?username=zhangsan&amp;gender=m&amp;hoby=lanqiu&amp;hoby=ppq&amp;city=guangzhou&amp;valistr=1234</a> <br/></li>
+<li>post提交：通过底层的流提交</li>
+<li>http协议中规定了7种提交方式，只用get和post，其他5中不常用</li>
+<li>get和post区别：<br/><br>get：<br/></li>
+</ul>
+<p>  1.将参数拼接到地址栏<br/><br>  2.非常不安全<br/><br>  3.由于通过地址栏发送数据，数据量不能太大，一般不超1kb<br/><br>  post：<br/><br>  1.通过底层的流提交数据<br/><br>  2.没有将数据拼接到地址栏，相对更安全<br/><br>  3.数据大小理论上没有限制<br/></p>
+<ul>
+<li><p>表单中的项：<br/><br>所有的项都需要有name属性才能被提交，没有则不会被提交，提交时以key=value形式提交，name相当于键值对的key <br/></p>
+<pre><code>input输入项：
+type属性：
+text：文本框
+password：密码框
+radio：单选框 checked=&quot;checked&quot;表示默认选中的
+checkbox：复选框
+submit：提交按钮
+select下拉框：
+select：定义下拉框
+option：定义下拉框中的项，selected=&quot;selected&quot;表示默认选中的</code></pre></li>
+</ul>
+</li>
+</ul>
+</div><ul class="post-copyright"><li class="post-copyright-author"><strong>Post author: </strong>TheSun</li><li class="post-copyright-link"><strong>Post link: </strong><a href="http://www.sfim.xyz/2020/06/26/HTML/" title="HTML">http://www.sfim.xyz/2020/06/26/HTML/</a></li><li class="post-copyright-license"><strong>Copyright Notice: </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><svg class="icon"><use xlink:href="#icon-creative-commons-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-by-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-nc-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-sa-line"></use></svg></a> unless stating additionally.</li></ul></section></article><div class="post-nav"><div class="post-nav-item"><a class="post-nav-prev" href="/2020/06/26/css/" rel="prev" title="css"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-left-s-line"></use></svg><span class="post-nav-text">css</span></a></div><div class="post-nav-item"><a class="post-nav-next" href="/2020/06/26/Tomcat/" rel="next" title="Tomcat"><span class="post-nav-text">Tomcat</span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-right-s-line"></use></svg></a></div></div></div><div id="comment"><div class="comment-tooltip text-center"><span>点击按钮跳转 GitHub Issues 评论。</span><br><span>若没有本文 Issue，您可以使用 Comment 模版新建。</span><br><a class="hty-button hty-button--raised" id="github-issues" href="https://github.com/1031646184/1031646184.github.io/issues?q=is:issue+HTML" target="_blank" rel="noopener">GitHub Issues</a></div><div id="valine-container"></div><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function initValine() {
+  const valineConfig = {"enable":true,"appId":"Pdeif4xg3fu87KTqLKogrTu6-gzGzoHsz","appKey":"iy93OInSQK6HKbJbL1ISOT9R","placeholder":"Just go go","avatar":null,"pageSize":10,"visitor":false,"highlight":true,"recordIP":false,"enableQQ":true,"el":"#valine-container","lang":"chinese"}
+  valineConfig.path = window.location.pathname
+  new Valine(valineConfig)
+}
+setTimeout(initValine, 1000)</script></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; 2019 – 2020 </span><span class="with-love" id="animate"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-cloud-line"></use></svg></span><span class="author"> TheSun</span></div><div class="powered"><span>Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> v4.2.1</span><span class="footer-separator">|</span><span>Theme - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v0.9.1</span></div></footer><a class="hty-icon-button" id="goUp" aria-label="back-to-top" href="#"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-up-s-line"></use></svg><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#0078E7" stroke-width="2" stroke-linecap="round"></circle></svg></a></div><script defer src="/js/utils.js"></script><script defer src="/js/hexo-theme-yun.js"></script></body></html>

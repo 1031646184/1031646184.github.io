@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>TheSun的博客</title>
+  
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://www.sfim.xyz/"/>
+  <updated>2020-06-26T04:53:25.535Z</updated>
+  <id>http://www.sfim.xyz/</id>
+  
+  <author>
+    <name>TheSun</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>MySql</title>
+    <link href="http://www.sfim.xyz/2020/06/26/MySql/"/>
+    <id>http://www.sfim.xyz/2020/06/26/MySql/</id>
+    <published>2020-06-26T04:49:29.000Z</published>
+    <updated>2020-06-26T04:53:25.535Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li><a href="#MySql"><strong>MySql</strong></a><br>  -<a href="#kubiaobiaojiludeCRUDgailan">库、表、表记录的CRUD概览</a><ul><li><a href="#kudeCRUD">库的CRUD</a></li><li><a href="#biaodeCRUD">表的CRUD</a></li><li><a href="#biaojiludeCRUD">表记录的CRUD</a><ul><li><a href="#like">like：模糊查询</a></li><li><a href="#juhehanshu">聚合函数</a></li><li><a href="#fenzuchaxun">分组查询</a></li></ul></li><li><a href="#shujukubenfenyuhuifu">数据库备份与恢复</a></li><li><a href="#duobiaochaxun">多表查询</a></li><li><a href="#dikaerjichaxun">笛卡尔积查询</a></li></ul></li></ul><p><a id="MySql"></a></p><h3 id="MySql"><a href="#MySql" class="headerlink" title="MySql"></a>MySql</h3><h4 id="数据库概念"><a href="#数据库概念" class="headerlink" title="数据库概念"></a>数据库概念</h4><ul><li><p>什么是数据库<br/><br>  数据库（database）是按照数据结构组织、存储和管理数据的仓库，简而言之就是存储数据的仓库</p></li><li><p>关系型数据库<br/></p><ul><li>发展历程：层次式数据库，网络式数据库，关系型数据库</li><li>关系型数据库：利用表来存储数据，利用表和表之间的关系保存数据之间的关系</li></ul></li><li><p>常见的关系型数据库<br/><br>  SQLserver<br/><br>  mysql<br/><br>  oracle<br/><br>  …<br/><br>  任何关系型数据库的语法都是sql</p></li><li><p>mysql介绍</p><ul><li>mysql是一个关系型数据库，由瑞典的mysql AB 公司开发，目前属于oracle旗下</li><li>特点是体积小，速度快，成本低，开源</li></ul></li><li><p>mysql安装配置<br/><br>  详见安装文档</p></li><li><p>mysql相关命令</p><pre><code>登录mysql命令：mysql -uroot -p123456 -h ip-u：后面是用户名-p：后面是密码-h：后面是ip地址，如果是本机，ip可以省略退出mysql：quit    或者    exit启动、停止mysql服务启动：net start mysql关闭：net stop mysql</code></pre></li><li><p>mysql常见概念</p><ul><li>数据库：一个mysql服务器中可以有多个库，一个库就是表的集合</li><li>表：类似于一个excel表格，用于存储数据</li><li>表记录：表中的一行数据        <h4 id="SQL语言"><a href="#SQL语言" class="headerlink" title="SQL语言"></a>SQL语言</h4></li></ul></li><li><p>SQL概述<br>SQL指结构化查询语言，是操作关系型数据库的通用语言<br>SQL是一个标准，但是数据库厂商为了增强数据库的功能，添加了一些非标准的SQL，称为数据库的“方言”</p></li><li><p>SQL能干什么</p><ul><li>SQL可以对数据库进行增删改查</li><li>SQL可以对表进行增删改查</li><li>SQL可以对表记录进行增删改查</li></ul></li></ul><p><a id="kubiaobiaojiludeCRUDgailan"></a></p><ul><li>库的CRUD：Create、Read、Update、Delete<ul><li>增：create database mydb1；</li><li>删：drop database mydb1；</li><li>改：alter database mydb1 character set gbk；</li><li>查：show databases；\show create database mydb1;</li><li>切换数据库：use mydb1; \ select database();</li></ul></li><li>表的CRUD：<ul><li>数据类型：<ul><li>字符串：char(n)定长字符串，效率高、varchar(n)不定长字符串，省空间</li><li>数值型：int、bigint、double</li><li>日期型：date年月日、timestamp时间戳</li></ul></li><li>字段约束：</li><li>主键约束：<ul><li>非空且唯一 primary key</li><li>自增：auto_increment</li><li>非空：not null</li><li>唯一：unique</li></ul></li><li>增：create table stu(id int primary key auto_increment,name varchar(20),score double)</li><li>删：drop table stu;</li><li>改：alter table add\modify\drop\rename to...</li><li>查：show tables;\desc stu;\show create table stu;</li></ul></li><li>表记录的CRUD:<ul><li>增：insert into table_name values(value1,value2…);</li><li>删：delete from table_name [where…];</li><li>改：update table_nam****e set col_name=value [where…];</li><li>查：select * from table_name;       </li></ul></li></ul><p><a id="kudeCRUD"></a></p><h4 id="库的CRUD"><a href="#库的CRUD" class="headerlink" title="库的CRUD"></a>库的CRUD</h4><ul><li><p>创建数据库<br/></p><ul><li><p>语法：create database [if not exists] db_name [character set charset_name];<br/></p></li><li><p>练习：<br/></p><pre><code>创建一个名称为mydb1的数据库create database mydb1;create database if not exists mydb1; // 可以防止报错创建一个字符集为gbk的数据库create database mydb3 character set gbk;</code></pre></li></ul></li><li><p>查看数据库<br/></p><ul><li><p>查看所有的数据库：<br/><br>  show databases;<br/></p></li><li><p>查看数据库的创建语句：<br>  show create database db_name;<br/></p></li><li><p>练习：</p><pre><code>查看所有的数据库show databases;查看mydb1的建库语句show create database mydb1;</code></pre></li></ul></li><li><p>修改数据库</p><ul><li><p>数据库的名称无法修改<br/></p></li><li><p>alter database db_name character set charset_name;</p></li><li><p>练习：</p><pre><code>将mydb3的字符集修改为utf8alter database mydb3 character set utf8;</code></pre></li></ul></li><li><p>删除数据库</p><ul><li><p>drop database [if exists] db_name;</p></li><li><p>练习：</p><pre><code>删除mydb3数据库drop database mydb3;</code></pre></li></ul></li><li><p>选择数据库</p><ul><li>选择数据库：use db_name;</li><li>查询当前使用的数据库：select database();    </li></ul></li></ul><p><a id="biaodeCRUD"></a>    </p><h4 id="表的CRUD"><a href="#表的CRUD" class="headerlink" title="表的CRUD"></a>表的CRUD</h4><ul><li><p>数据类型</p><ul><li><p>字符串类型<br/><br>  char(n) 定长字符串<br/><br>  &ensp;&ensp;n表示字符串的最大长度不能超过这个值，n最大为255<br/><br>  &ensp;&ensp;存储时分配固定长度的空间，一般用于存储固定长度的字符串，如手机号、身份证号等，效率高<br/><br>  varchar(n) 不定长字符串<br/><br>  &ensp;&ensp;n最大为65535<br/><br>  &ensp;&ensp;存储时，先计算字符串的大小，然后再分配对应长度的空间，一般存储不固定长度的字符，如姓名、昵称等，节省空间<br/></p></li><li><p>数值类型</p><table><thead><tr><th>数据库</th><th>Java</th></tr></thead><tbody><tr><td>tiny</td><td>intbyte</td></tr><tr><td>small</td><td>intshort</td></tr><tr><td>int</td><td>int</td></tr><tr><td>bigint</td><td>long</td></tr><tr><td>float</td><td>float</td></tr><tr><td>double</td><td>double</td></tr></tbody></table></li><li><p>大数据类型</p><ul><li>blob：大二进制类型，可以存储二进制数据，如图片、音频、视频等，最大4gb</li><li>text：大文本类型，可以存储大量字符数据，最大4gb</li><li>text为mysql方言，在其他数据库中是clob类型</li></ul></li><li><p>日期类型</p><ul><li>date：日期 2008-08-08</li><li>time：时间 20:08:00</li><li>datetime：日期时间  2008-08-08 20:08:00</li><li>timestamp：时间戳  2008-08-08 20:08:00 底层存的是1970年1月1日到当前时间的毫秒值</li></ul></li><li><p>逻辑型</p><ul><li>bit：只能取0和1</li></ul></li></ul></li><li><p>约束条件</p><ul><li><strong>主键约束</strong>：保证所约束的值必须唯一且非空<ul><li>建表时添加主键约束：field datatype primary key</li><li>表已存在添加主键约束：alter table table_name add primary key(field)</li><li>主键自动增长：field datatype primary key auto_increment</li></ul></li><li>唯一约束：unique 表示所约束的字段必须唯一</li><li>非空约束：not null 表示所约束的字段不能为空</li></ul></li><li><p>创建表</p><ul><li><p>语法：</p><pre><code>create table table_name(field1 datatype,field2 datatype,…fieldn datatype);field表示字段名称datatype表示数据类型</code></pre></li><li><p>练习：<br/><br>  创建一个employee表，字段如下：</p><table><thead><tr><th>id</th><th>整型</th></tr></thead><tbody><tr><td>name</td><td>字符型</td></tr><tr><td>gender</td><td>字符型</td></tr><tr><td>birthday</td><td>日期型</td></tr><tr><td>entry_date</td><td>日期型</td></tr><tr><td>job</td><td>字符型</td></tr><tr><td>salary</td><td>浮点型</td></tr><tr><td>resume</td><td>大文本型</td></tr></tbody></table></li><li><p>命令</p><pre><code>create table employee(id int,name varchar(20),gender char(1),birthday date,entry_date date,job varchar(30),salary double,resume text);</code></pre></li><li><p>重新创建employee表，设置id为主键自增，name唯一，gender非空</p><pre><code>create table employee2(id int primary key auto_increment,name varchar(20) unique,gender char(1) not null,birthday date,entry_date date,job varchar(30),salary double,resume text);</code></pre></li></ul></li><li><p>查看表</p><ul><li>查看所有的表<br/><br>  show tables;</li><li>查看表结构<br/><br>  desc table_name;<br/></li><li>查看建表语句<br>  show create table table_name;</li></ul></li><li><p><strong>修改表</strong></p><ul><li>增加列：add<br/><br>  在员工表增加一个image列<ul><li>alter table employee add image blob;</li></ul></li><li>修改列：modify<br/><br>  修改job列，长度变为60<ul><li>alter table employee modify job varchar(60);</li></ul></li><li>删除列：drop<br/><br>  删除gender列<ul><li>alter table employee drop gender;</li></ul></li><li>修改列名：change<br/><br>  将列名name改为username<ul><li>alter table employee change name username varchar(40);</li></ul></li><li>修改表名：rename<br/><br>  将employee表名改为user<ul><li>alter table employee rename to user;</li><li>rename table user to employee;</li></ul></li><li>修改列顺序：after<br/><br>  将image插入到id后<ul><li>alter table employee modify image blob after id;</li></ul></li><li>修改表字符集：set<br/><br>  将employee表的字符集改为gbk<br/><br>  alter table employee character set gbk;</li></ul></li><li><p>删除表</p><ul><li>drop table table_name;</li><li>练习：<br/><br>删除employee表<br/><br>drop table employee; </li></ul></li></ul><p><a id="biaojiludeCRUD"></a>     </p><h4 id="表记录的CRUD"><a href="#表记录的CRUD" class="headerlink" title="表记录的CRUD"></a>表记录的CRUD</h4><ul><li><p>增insert</p><ul><li><p>语法：</p><ul><li>insert into table_name [(col_name1,col_name2…)] values(value1,value2…);</li></ul></li><li><p>注意：<br/><br>字符串和日期要使用单引号引起来<br/><br>如果插入的字段包含表中所有的字段，可以省略列的列表</p></li><li><p>练习：<br/><br>向employee2表中添加3条记录</p><pre><code>insert into employee2 (id,name,gender,birthday,entry_date,job,salary,resume) values(null,&apos;tom&apos;,&apos;m&apos;,&apos;1999-9-1&apos;,&apos;2020-10-10&apos;,&apos;doctor&apos;,5000,&apos;good&apos;);insert into employee2 values(null,&apos;rose&apos;,&apos;w&apos;,&apos;2008-1-10&apos;,&apos;2019-8-10&apos;,&apos;teacher&apos;,3000,&apos;good&apos;);insert into employee2(id,name,gender) values(null,&apos;jerry&apos;,&apos;m&apos;);insert into employee2 values(null,&apos;张飞&apos;,&apos;男&apos;,&apos;2008-1-10&apos;,&apos;2019-8-10&apos;,&apos;将军&apos;,3000,&apos;猛男一个&apos;);</code></pre></li><li><p><strong>乱码问题</strong>：<br/><br>mysql安装时使用的是utf-8码表，cmd窗口的默认码表是gbk</p><ul><li>解决方式：<ul><li>在cmd中通过set names gbk;解决，这个代码意思为告诉mysql当前数据为gbk，需要使用gbk来读取<br/><br>  这种方式只在当前窗口有效</li><li>mysql安装目录下找到my.ini文件57行，将utf8改为gbk<br/><br>  这种方式永久有效<br/></li></ul></li><li>这两种方式只是改变了mysql读取数据的编码，底层保存数据的编码依然是utf-8</li></ul></li></ul></li><li><p>改update</p><ul><li><p>语法：</p><ul><li>update table_name set col_name=value [where …];</li></ul></li><li><p>练习：</p><pre><code>将所有员工的薪水改为2000update employee2 set salary=2000;将张飞的工资改为1000update employee2 set salary=1000 where name=&apos;张飞&apos;;将张飞的工资在原来的基础上增加500update employee2 set salary=salary+500 where name=&apos;张飞&apos;;</code></pre></li></ul></li><li><p>删delete</p><ul><li><p>语法：</p><ul><li>delete from table_name [where …];</li></ul></li><li><p>练习：</p><pre><code>删除名称为tom的表记录delete from employee2 where name=&apos;tom&apos;;删除表中所有的数据delete from employee2;    //逐行删除truncate table employee2;   //直接摧毁整表，然后重建</code></pre></li></ul></li><li><p><strong>查select</strong></p><ul><li><p>基本查询</p><ul><li><p>语法：</p><ul><li>select [distinct] * | col_name1,col_name2… from table_name;</li><li>distinct表示去重</li></ul></li><li><p>练习：</p></li><li><p>创建exam表</p><pre><code>create table exam(id int primary key auto_increment,name varchar(20) not null,chinese double,math double,english double);insert into exam values(null,&apos;关羽&apos;,85,76,70);insert into exam values(null,&apos;张飞&apos;,70,75,70);insert into exam values(null,&apos;赵云&apos;,90,65,95);insert into exam values(null,&apos;张三丰&apos;,85,79,null);查询所有的学生信息select * from exam;查询表中所有学生的姓名和语文成绩select name,chinese from exam;查询语文成绩，并去重select distinct chinese from exam;在所有学生分数上加10分特长分显示select name,chinese+10,math+10,english+10 from exam;统计每个学生的总分select name,chinese+math+english from exam;//ifnull(english,0) 如果english为null，则用0代替select name,chinese+math+ifnull(english,0) from exam;//为列名起别名select name,chinese+math+ifnull(english,0) 总分 from exam;</code></pre></li></ul></li><li><p>使用<strong>where</strong>字句查询</p><ul><li><p>语法：<br/><br>select [distinct] * | col_name1,col_name2… from table_name where…;</p></li><li><p>练习：</p><pre><code>查询姓名为关羽的学生select * from exam where name=&apos;关羽&apos;;查询英语成绩大于90分的学生select * from exam where english&gt;90;查询总分大于230的学生select name,chinese+math+ifnull(english,0) 总分 from exam where chinese+math+ifnull(english,0)&gt;230;查询语文分数在80-90之间的同学select * from exam where chinese&lt;90 and chinese&gt;80;select * from exam where chinese between 80 and 90;查询数学分数为75、76、77的同学，再查询不在这个范围的同学select * from exam where math=75 or math=76 or math=77;select * from exam where math in (75,76,77);select * from exam where !(math=75 or math=76 or math=77);select * from exam where math not in (75,76,77);查询数学大于70，语文大于80的同学select * from exam where math&gt;70 and chinese&gt;80;</code></pre><p><a id="like"></a></p></li><li><p>like：模糊查询</p><ul><li><p>百分号(%)：匹配0个或多个字符</p></li><li><p>下划线( _ )：匹配一个字符</p><pre><code>where salary like &apos;200%&apos;        //  以200开头的数字where salary like &apos;%200%&apos;     // 数字中包含200即可where salary like &apos;_200%&apos;      //  数字第二、三、四位为200where salary like &apos;2_%_%&apos;      // 数字以2开头，并且至少三位数where salary like &apos;2__3&apos;          // 以2开头，3结尾的四位数查询姓张的学生成绩select * from exam where name like &apos;张%&apos;;查询数学成绩中带数字6的学生select * from exam where math like &apos;%6%&apos;;    </code></pre></li></ul></li></ul></li><li><p>排序查询</p><ul><li><p>语法：<br/><br>  select [distinct] * | col_name1,col_name2… from table_name order by col_name asc|desc; <br/><br>  &emsp;  order by指定按照那个字段排序<br/><br>  &emsp;  asc表示升序，默认值<br/><br>  &emsp;  desc表示降序<br/><br>  &emsp;  order by写在sql语句的末尾<br/></p></li><li><p>练习：</p><pre><code>对数学排序后输出select * from exam order by math;select * from exam order by math desc;对总分降序输出select name,chinese+math+ifnull(english,0) 总分 from exam order by 总分 desc;对姓张的同学总分升序输出select name,chinese+math+ifnull(english,0) 总分 from exam where name like &apos;张%&apos; order by 总分;对语文降序，如果相同，则按照数学降序select * from exam order by chinese desc,math desc;                       </code></pre></li></ul><p><a id="juhehanshu"></a></p></li><li><p>聚合函数<br/><br>  &emsp;聚合函数时针对列进行聚合</p><ul><li><p>语法：</p><pre><code>求表的记录数select count(*) from table_name where…求指定列的和select sum(列名) from table_name where…求指定列的平均数select avg(列名) from table_name where…求指定列的最大值select max(列名) from table_name where…求指定列的最小值select min(列名) from table_name where…</code></pre></li><li><p>练习：</p><pre><code>统计一个班共多少学生select count(*) from exam;统计数学大于75分的学生有多少个select count(*) from exam where math&gt;75;统计一个班的数学总成绩select sum(math) from exam;统计一个班的英语平均分select avg(english) from exam;select avg(ifnull(english,0)) from exam;求班级总分的最高分和最低分select max(chinese+math+ifnull(english,0)) from exam;select min(chinese+math+ifnull(english,0)) from exam;查询总分最多的学生select * from exam where (chinese+math+ifnull(english,0))=(select max(chinese+math+ifnull(english,0)) from exam);     </code></pre></li></ul><p><a id="fenzuchaxun"></a></p></li><li><p>分组查询</p><ul><li><p>语法：<br/><br>  &emsp;select [distinct] * | col_name1,col_name2… from table_name group by col_name having…; <br/><br>  having用来进行分组后的过滤<br/><br>  where是分组前过滤<br/></p></li><li><p>练习：</p><pre><code>create table orders(id int,product varchar(20),price double);insert into orders values(1,&apos;小米手机&apos;,900);insert into orders values(2,&apos;奥妙洗衣液&apos;,60);insert into orders values(3,&apos;乐视tv&apos;,90);insert into orders values(4,&apos;联想键盘&apos;,80);insert into orders values(5,&apos;奥妙洗衣液&apos;,60);insert into orders values(6,&apos;小米手机&apos;,900);对订单表中的商品分类后，显示每类商品的数量和总价select * from orders group by product;select product,count(*),sum(price) from orders group by product;查询总价大于100的商品数量和总价select product,count(*),sum(price) from orders group by product having sum(price)&gt;100;查询单价小于100，总价大于100的商品名称select product from orders where price&lt;100 group by product having sum(price)&gt;100;</code></pre></li></ul></li></ul></li></ul><p><a id="shujukubeifenyuhuifu"></a></p><ul><li><p>数据库备份与恢复</p><ul><li>备份数据库<ul><li>cmd窗口未登录mysql</li><li>备份命令：mysqldump -uroot -p 数据库名称 &gt; 备份文件位置</li><li>例如：mysqldump -uroot -p mydb1 &gt; D:/1.sql</li></ul></li><li>恢复数据库<ul><li>cmd窗口未登录mysql</li><li>恢复命令：mysql -uroot -p 数据库名称 &lt; 文件位置 </li><li>例如：mysql -uroot -p mydb6 &lt; D:/1.sql</li></ul></li></ul></li><li><p>外键约束</p><ul><li>外键：外键就是一张表保存另一张表的主键，用来维护表之间的关系</li><li>外键约束：由数据库帮我们维护数据的完整性和一致性</li><li>外键约束命令：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">foreign key(c_id) references bigclass(id)</span><br><span class="line">create table dept(id int primary key,name varchar(20));</span><br><span class="line">insert into dept values(1,&#39;财务&#39;);</span><br><span class="line"> </span><br><span class="line">create table emp(</span><br><span class="line">id int primary key,</span><br><span class="line">name varchar(20),</span><br><span class="line">d_id int,</span><br><span class="line">foreign key(d_id) references dept(id)</span><br><span class="line">);</span><br><span class="line">insert into emp values(1,&#39;zs&#39;,1);</span><br></pre></td></tr></table></figure></li></ul></li><li><p>多表设计</p><ul><li>一对一：在任意一方保存另一方的主键作为外键</li><li>一对多：在多的一方保存一的主键作为外键</li><li>多对多：在一张第三方表中分别保存两张表的主键作为外键</li></ul></li></ul><p><a id="duobiaochaxun"></a></p><ul><li><p>多表查询</p><pre><code>create table dept(id int primary key auto_increment,name varchar(20));insert into dept values(null,&apos;财务部&apos;);insert into dept values(null,&apos;人事部&apos;);insert into dept values(null,&apos;科技部&apos;);insert into dept values(null,&apos;销售部&apos;);create table emp(id int primary key auto_increment,name varchar(20),dept_id int);insert into emp values(null,&apos;张三&apos;,1);insert into emp values(null,&apos;李四&apos;,2);insert into emp values(null,&apos;王五&apos;,3);insert into emp values(null,&apos;刘能&apos;,5);</code></pre><ul><li><p>练习：</p><pre><code>查询员工表和部门表，列出员工信息和部门信息//查询的结果是笛卡尔积select * from emp,dept;//where过滤查询Select * from emp,dept where emp.dept_id=dept.id;//内链接查询Select * from emp inner join dept on emp.dept_id=dept.id;查询员工表和部门表，列出所有的员工信息（包括没有部门的员工）和对应的部门信息//左外连接查询select * from emp left join dept on emp.dept_id=dept.id;查询员工表和部门表，列出所有的部门信息（包括没有员工的部门）和对应的员工信息//右外连接查询select * from emp right join dept on emp.dept_id=dept.id;查询员工表和部门表，列出所有的员工信息（包括没有部门的员工）和所有的部门信息（包括没有员工的部门）//全外连接查询select * from emp full join dept on emp.dept_id=dept.id;//通过union模拟全外select * from emp left join dept on emp.dept_id=dept.idunionselect * from emp right join dept on emp.dept_id=dept.id;</code></pre></li></ul></li></ul><p><a id="dikaerjichaxun"></a> </p><ul><li><p>笛卡尔积查询：</p><ul><li><p>两张表相乘得出的结果，如果左边有m条数据，右边有n条数据，<strong>笛卡尔积会产生m*n条数据</strong>，其中大量是错误的数据，但是也包含了正确的数据</p></li><li><p>内连接查询：inner join … on …查询左边有，右边也有的数据</p></li><li><p>左外连接查询：left join … on …在内链接基础上，加上左边有，右边没有的数据</p></li><li><p>右外连接查询：right join … on …在内链接基础上，加上右边有，左边没有的数据</p></li><li><p>全外连接查询：full join … on …列出所有的数据   mysql不支持full join，可以用union模拟</p></li><li><p>尽量减少笛卡尔积</p><pre><code>select * from orders o,product p where o.p_id=p.id and o.price&gt;3000 and p.name like &apos;%手机%&apos;;Select * from (select * from order where price&gt;3000) oo,(select * from product where p.name like &apos;%手机%&apos;) pp where oo.p_id=pp.id;</code></pre></li></ul></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#MySql&quot;&gt;&lt;strong&gt;MySql&lt;/strong&gt;&lt;/a&gt;&lt;br&gt;  -&lt;a href=&quot;#kubiaobiaojiludeCRUDgailan&quot;&gt;库、表、表记录的CRUD概览&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#kudeCR
+      
+    
+    </summary>
+    
+    
+      <category term="数据库" scheme="http://www.sfim.xyz/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/"/>
+    
+    
+      <category term="学习笔记" scheme="http://www.sfim.xyz/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+      <category term="MySql" scheme="http://www.sfim.xyz/tags/MySql/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JQuery</title>
+    <link href="http://www.sfim.xyz/2020/06/26/JQuery/"/>
+    <id>http://www.sfim.xyz/2020/06/26/JQuery/</id>
+    <published>2020-06-26T04:48:24.000Z</published>
+    <updated>2020-06-26T04:49:10.191Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="jQuery概述"><a href="#jQuery概述" class="headerlink" title="jQuery概述"></a>jQuery概述</h3><ul><li>什么是jQuery<br/><br>  jQuery是一个”写的更少，但做的更多”的轻量级JavaScript函数库</li><li>jQuery的优势<ul><li>可以简化js代码</li><li>可以像css那样获取元素</li><li>可以兼容常用浏览器</li></ul></li><li>jQuery版本<ul><li>1.x   支持ie6+</li><li>2.x  支持ie9+</li><li>3.x  支持ie9+ <br/><br>jQuery不兼容老版本，每个版本会删除一些老的方法，增加一些新的方法</li></ul></li><li>引入jQuery<br/><br>jQuery是一个js文件，所以引入jQuery和引入js是一样的</li></ul><p><a id="JQueryyufa"></a></p><ul><li><p>jQuery语法</p><ul><li><p>$介绍<br/><br>  jQuery的对象都是通过$()包起来的</p></li><li><p>文档就绪事件<br/></p><pre><code>如果希望整个文档加载完之后执行，格式：$(document).ready(function(){xxx})可以简写为：$(function(){xxx})</code></pre></li><li><p>dom对象和jQuery对象的转换</p><ul><li>dom对象转换为jQuery对象<br/><br>  dom对象转换为jQuery对象，只需通过$()包装即可<br/><br>  var div = document.getElementById(“d1”);  //dom对象<br/><br>  $(div)  //jQuery对象<br/></li><li>jQuery对象转换为dom对象<br>  $(“#username”)[0]       &emsp;      或者      &emsp;        $(“#username”).get(0)</li></ul></li></ul></li></ul><p><a id="xuanzeqi"></a></p><ul><li><p><strong>选择器</strong></p><ul><li><p>基本选择器</p><ul><li>元素名选择器<br/><br>  根据标签名选中元素  –  $(“div”)</li><li>类选择器<br/><br>  根据给定的类匹配元素 – $(“.c1”) \ $(“div.c1”)选中所有class为c1的div元素</li><li>id选择器<br/><br>  根据id值匹配元素  –  $(“#d1”)</li><li>*匹配符<br/><br>  匹配所有元素  –  $(“*”)</li><li>多元素选择器<br/><br>  匹配所有选中的元素  –  $(“div,.c1,#d1,#d2”)</li></ul></li><li><p>层级选择器</p><pre><code>后代选择器  --  $(&quot;div span&quot;)div下所有的后代span子元素选择器  --  $(&quot;div&gt;span&quot;)div下所有的span子元素相邻兄弟  --  $(&quot;div+span&quot;)div后紧邻的兄弟span兄弟  --  $(&quot;div~span&quot;)div后所有的兄弟span</code></pre></li><li><p><strong>文档操作</strong></p><p>  siblings() – 获取前后所有的兄弟元素<br>  parents(“div”) – 获取所有的div父元素<br>  find(“span”) – 查找所有的span子元素<br>  each(function(){}) – 遍历选中的元素，并对每个元素执行function函数<br>  $(“<div>我是新来的</div>“) – 创建一个包含内容的div元素<br>  append(“<div>abc</div>“) – 添加一个div子元素<br>  $(“#d1”).remove() – 删除选中元素<br>  text()\html() – 获取或者设置html、text内容<br>  attr() – 获取或者设置元素的属性<br>  css() – 获取或者设置css样式</p></li></ul></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;jQuery概述&quot;&gt;&lt;a href=&quot;#jQuery概述&quot; class=&quot;headerlink&quot; title=&quot;jQuery概述&quot;&gt;&lt;/a&gt;jQuery概述&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;什么是jQuery&lt;br/&gt;&lt;br&gt;  jQuery是一个”写的更少，但做的更多
+      
+    
+    </summary>
+    
+    
+      <category term="JQuery" scheme="http://www.sfim.xyz/categories/JQuery/"/>
+    
+    
+      <category term="学习笔记" scheme="http://www.sfim.xyz/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+      <category term="JQuery" scheme="http://www.sfim.xyz/tags/JQuery/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>DHTML</title>
+    <link href="http://www.sfim.xyz/2020/06/26/DHTML/"/>
+    <id>http://www.sfim.xyz/2020/06/26/DHTML/</id>
+    <published>2020-06-26T04:47:06.000Z</published>
+    <updated>2020-06-26T04:53:40.575Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li><a href="#DHTML"><strong>DHTML</strong></a><ul><li><a href="#BOM">BOM</a></li><li><a href="#DOM">DOM</a></li><li><a href="#yuansudezengshangai">元素的增删改</a></li></ul></li></ul><h3 id="DHTML"><a href="#DHTML" class="headerlink" title="DHTML"></a>DHTML</h3><ul><li>dhtml概述<ul><li>动态的html</li><li>dhtml是将现有的html、css、js整合在一起，形成了dhtml技术</li><li>dhtml分为BOM和DOM<ul><li>BOM：浏览器对象模型，封装了浏览器操作相关对象</li><li>DOM：文档对象模型，将html文档按照文档结构形成树形结构</li></ul></li></ul></li></ul><p><a id="BOM"></a></p><ul><li>BOM<ul><li>Window对象<br/><br>全局对象，调用此对象的方法时，可以省略window</li><li><strong>常用事件</strong>：<ul><li>onclick  -   窗口被点击时触发</li><li>onfocus  -  获取焦点事件</li><li>onblur  -   失去焦点事件</li><li>onload  -  文档加载完后触发</li></ul></li><li>常用方法：<ul><li>alert()   -   弹出消息框</li><li>confirm() - 弹出确认框，确定返回true，取消返回false</li></ul></li></ul></li></ul><p><a id="DOM"></a></p><ul><li>DOM<ul><li>获取元素<ul><li>document.getElementById(“id值”)；通过id获取一个元素</li><li>document.getElementsByName(“name属性值”)； 通过name属性获取多个元素，返回的是数组</li><li>document.getElementsByTagName(“标签名”)；通过标签名获取多个元素，返回的是数组       </li></ul></li><li>value属性：获取或者设置value</li><li>innerText：（部分浏览器不支持）获取或者设置元素的文本内容</li><li>innerHTML：获取或者设置元素的html内容</li></ul></li></ul><p><a id="yuansudezengshangai"></a></p><ul><li><p>元素的增删改</p><pre><code>var div = document.createElement(&quot;div&quot;);  创建一个div元素appendChild(div);   末尾追加子元素removeChild(div);   删除子元素replaceChild(newDiv,oldDiv);  用newDiv替换oldDivinsertBefore(newDiv,oldDiv);  在oldDiv前添加新的newDivdiv.cloneNode([boolean]);  克隆div，参数默认是false，表示只克隆div本身，不克隆子元素，如果改为true，则连同子元素一起克隆</code></pre></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#DHTML&quot;&gt;&lt;strong&gt;DHTML&lt;/strong&gt;&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#BOM&quot;&gt;BOM&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#DOM&quot;&gt;DOM&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#yuans
+      
+    
+    </summary>
+    
+    
+      <category term="HTML" scheme="http://www.sfim.xyz/categories/HTML/"/>
+    
+    
+      <category term="学习笔记" scheme="http://www.sfim.xyz/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+      <category term="DHTML" scheme="http://www.sfim.xyz/tags/DHTML/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>JavaScript</title>
+    <link href="http://www.sfim.xyz/2020/06/26/JavaScript/"/>
+    <id>http://www.sfim.xyz/2020/06/26/JavaScript/</id>
+    <published>2020-06-26T04:44:54.000Z</published>
+    <updated>2020-06-26T04:45:42.207Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="javaScript"><a href="#javaScript" class="headerlink" title="javaScript"></a>javaScript</h2><ul><li>JavaScript是脚本语言，无需编译 。JavaScript基于对象，弱类型</li><li>js优点<ul><li>交互性：可以与用户进行动态交互</li><li>安全性：js只能在浏览器内运行，不能访问本地硬盘或其他资源</li><li>跨平台：只要有浏览器即可，与平台无关</li></ul></li><li>在html中引入js<ul><li>在html中书写js代码<br/><br>在html中添加script标签，在此标签中书写js代码</li><li>引入外部的js文件<br/><br>可以将js代码写到一个独立的js文件中，通过script标签引入此文件 <br/><br>注意：引入外部js文件的script标签中不要添加其他js代码 <br/></li></ul></li></ul><h4 id="js语法"><a href="#js语法" class="headerlink" title="js语法:"></a>js语法:</h4><ul><li><p>注释 <br/></p><ul><li>单行注释：// <br/></li><li>多行注释：/*    */ <br/></li></ul></li><li><p>数据类型<br/></p><ul><li>基本数据类型<ul><li>数值类型（number）<br/><br>  js中所有的数值底层都是浮点型，浮点型和整型之间会自动转换<br/><br>  如 2.4+3.6=6<br/><br>  特殊值：Infinity 正无穷  -Infinity 负无穷<br/><br>  NaN（not a number）非数字<br/><br>  可以通过isNaN(xxx)判断是否为非数字，如isNaN(3)–false<br/></li></ul></li><li>字符串类型（string）<br/><br>  js中，字符串是基本数据类型，可以用单引号或者双引号引起来<br/><br>  如：var str1 = ‘abc’;   var str2 = “def”;<br/></li><li>布尔类型（boolean）<br/><br>  值为true或false <br/></li><li>undefined类型  <br/><br>  undefined值只有一个，就是undefined，表示变量未定义，如声明了一个变量，没有初始化，这个变量就是undefined<br/><br>  如：var a;    此时a的值为undefined</li><li>null类型<br/><br>  null表示空，一般作为返回值使用 </li><li>复杂数据类型：<br/><br>  数组、对象等都是复杂数据类型</li></ul></li><li><p>变量的定义<br/><br>  在js中，所有的变量都是通过var关键字声明的，变量可以指向任意类型<br/><br>  如：var str = “abc”;  &ensp;   var i = 100; <br/></p></li><li><p>运算符<br/><br>  js中的运算符和java中的大致相同<br/></p><ul><li>不同之处：<br/><br>比较运算符除了”==”，还有”===”<br/><ul><li>==：在比较时，底层会先进行数据类型转换，然后再比较<br/></li><li>===：为严格相等，比较时如果两端数据类型不一致，则直接返回false<br/></li></ul></li></ul></li><li><p>typeof：用来返回数据类型 <br/></p></li><li><p>delete：用来删除数组的元素或对象的属性等 <br/></p></li><li><p>语句<br/></p><ul><li>js语句和java基本一致<br/></li><li>if条件语句<br/></li><li>switch语句，也支持字符串类型<br/></li><li>循环语句<br/><br>&ensp;    while(){}   &ensp;   do{}while()  &ensp;   for(){}<br/></li><li>注意：js不支持增强for循环<br/></li></ul></li><li><p>函数<br/></p><ul><li>通过function关键字定义函数<br/><br>function 函数名(形参列表){<br/><br>函数体<br/><br>}<br/></li><li>调用函数：函数名(实参列表)</li></ul></li><li><p>数组<br/></p><ul><li>创建数组<br/><br>&ensp;var arr1 = new Array(10);//创建10个长度的空数组<br/><br>&ensp;var arr2 = [“abc”,18,true];//创建给定初始值的数组<br/><br>注意：<br/><ul><li>数组中可以存放任意类型的数据</li><li>如果某个位置没有元素，该位置的值为undefined</li><li>数组的长度可以任意改变</li></ul></li></ul></li><li><p>js的内置对象（API）</p><ul><li><p>String对象<br/><br>创建：<br/><br>var str = new String(“abc”)<br/><br>var str2 = “def”<br/></p></li><li><p>常用的属性和方法<br/></p><pre><code>length          字符串的长度str.match(regexp) --在字符串中查找匹配正则的值str.replace(regexp,replaceText) --根据正则匹配并替换str.search(regexp) --查找第一次匹配到正则的位置</code></pre><p><a id="RegExpduixiang"></a>            </p></li><li><p>RegExp对象（正则）<br>创建：<br/><br>var reg1 = new RegExp(“”,””);<br/><br>var reg2 = /xxx/[ig];<br/><br>标识符：g-global 全局查找   &ensp;      i-ignoreCase忽略大小写<br/><br>^-表示以…开头     &ensp;       $-表示以…结尾 <br/><br>方法：reg.test(str)检查字符串是否匹配正则，匹配为true<br/></p></li><li><p>Array对象<br/><br>sort()        对数组的元素进行排序</p></li><li><p>Math对象<br/><br>Math可以直接使用，无需创建</p><ul><li>Math.ceil(3.14)        向上取整</li><li>Math.floor(3.14)       向下取整</li><li>Math.round(3.14)     四舍五入</li><li>Math.random()         返回0-1之间的随机数</li></ul></li><li><p>全局对象<br/><br>全局对象没有语法，直接调用方法即可</p><ul><li>isNaN(value)          判断是否为非数字</li><li>eval(codeString)    将字符串当做代码执行</li></ul></li></ul></li><li><p>自定义对象</p><pre><code>var person = {&quot;name&quot; : &quot;zhangsan&quot;,&quot;age&quot; : 18,&quot;friends&quot; : [&quot;lisi&quot;,&quot;wangwu&quot;,&quot;zhangsanfeng&quot;],&quot;gf&quot; : {&quot;name&quot; : &quot;zhaoliu&quot;,&quot;age&quot; : 48}}</code></pre><p>  &ensp; person对象也是符合json格式<br/><br>  &ensp;对象中取值：person.name   或者   person[“age”]</p></li></ul><p><a id="DHTML"></a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;javaScript&quot;&gt;&lt;a href=&quot;#javaScript&quot; class=&quot;headerlink&quot; title=&quot;javaScript&quot;&gt;&lt;/a&gt;javaScript&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;JavaScript是脚本语言，无需编译 。JavaScript
+      
+    
+    </summary>
+    
+    
+      <category term="JavaScript" scheme="http://www.sfim.xyz/categories/JavaScript/"/>
+    
+    
+      <category term="学习笔记" scheme="http://www.sfim.xyz/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+      <category term="JavaScript" scheme="http://www.sfim.xyz/tags/JavaScript/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>css</title>
+    <link href="http://www.sfim.xyz/2020/06/26/css/"/>
+    <id>http://www.sfim.xyz/2020/06/26/css/</id>
+    <published>2020-06-26T04:42:23.000Z</published>
+    <updated>2020-06-26T04:43:24.240Z</updated>
+    
+    <content type="html"><![CDATA[<p><a id="css"></a></p><h2 id="css"><a href="#css" class="headerlink" title="css"></a>css</h2><ul><li><p>概述<br/><br>  层叠样式表，可以用来美化html页面</p></li><li><p>div、span、p标签 <br/><br>  这三个标签都可以看做是容器，可以包裹其他的html内容，然后统一设置样式</p><ul><li>div：独占一行</li><li>span：多个span会在一行并排排列，直到一行排满才会换行</li><li>p：段落标签，独占一行，但是在行的上下会留一些空白</li><li>元素的类型： <br/><ul><li>块级元素：默认情况下独占一行的元素，例如div、p、h1-h6、br <br/></li><li>行内元素：默认情况下多个元素处在同一行，例如span、font <br/></li></ul></li></ul></li><li><p>在html中引入css <br/></p><ul><li>直接在对应的标签上添加style属性 <br/><br>  &ensp;可以通过style属性为标签设置样式 <br/><br>  &ensp;这种方式不推荐大量使用，会造成页面结构的混乱，不利于维护与扩展 <br/></li><li>通过style标签引入css <br/><br>  &ensp;在head中添加style标签，将所有的css代码写入此标签中 <br/><br>  &ensp;这种方式将css在style标签中统一管理，初步实现了html代码和css代码的分离 <br/></li><li>引入外部的css文件 <br/><br>  &ensp;通过head标签下的link标签引入外部的css文件 <br/><br>  &ensp;这种方式真正实现了html与css的代码分离 <br/><br><a id="xuanzeqi"></a></li></ul></li><li><p>选择器 <br/><br>  选择器用来选中需要修饰的标签</p><ul><li>基本选择器<ul><li>标签名选择器：<br/><br>  &ensp;通过标签名选中元素<br/><br>  &ensp;格式：标签名{css样式} <br/></li><li>类选择器：<br/><br>  &ensp;通过标签上的class属性为标签设置所属的类，所有class值相同的为一类，可以通过类选择器选中同一类的元素<br/><br>  &ensp;格式：.类名{} <br/></li><li>id选择器： <br/><br>  &ensp;通过标签上的id属性为标签设置编号，id是唯一的，通过id值选中对应元素 <br/><br>  &ensp;格式：#id值{}</li></ul></li><li>扩展选择器<br/><ul><li>后代选择器<br/><br>  &ensp;在父选择器中，再选中指定的后代元素<br/><br>  &ensp;格式：父选择器 后代选择器{}<br/></li><li>子元素选择器<br/><br>  &ensp;在父选择器中，再选中指定的子元素<br/><br>  &ensp;格式：父选择器&gt;子元素选择器{}<br/></li><li>分组选择器<br/><br>  &ensp;可以将多个选择器选中的元素一起修饰<br/><br>  &ensp;格式：选择器1，选择器2，…，选择器n{}<br/></li><li>属性选择器<br/><br>  &ensp;可以通过属性条件选中元素<br/><br>  &ensp;格式：选择器[属性条件]{}</li><li>相邻兄弟选择器<br/><br>  &ensp;如果两个元素具有相同的父元素，并且是挨着的，这两个元素就是相邻兄弟，可以根据前面的A元素选中后面的B元素<br/><br>  &ensp;格式：大哥+小弟{}<br/></li><li>伪元素选择器<br/><br>  &ensp;伪元素选择器不仅选中元素，还包括它的状态  <br/><br>  &ensp;状态分为如下几种：<br/><br>  :link      &ensp;    表示元素未被点击时的状态<br/><br>  :hover    &ensp;  表示鼠标移入时状态<br/><br>  :active    &ensp;  表示元素被点击时状态<br/><br>  :visited   &ensp;  表示元素被点击后的状态<br/> </li></ul></li></ul></li><li><p>边框、边距</p><ul><li>边框：<br/><br>border-可以分别设置上下左右的边框，也可以一起设置<ul><li>外边距：<br/><br>  元素和父元素之间的距离<br/><br>  margin-可以分别设置上下左右的外边距，也可以一起设置，行内元素设置上下外边距无效<br/></li><li>内边距：<br/><br>  元素和子元素之间的距离<br/><br>  padding-可以分别设置上下左右的内边距，也可以一起设置<br/><br><a id="changyongshuxing"></a></li></ul></li></ul></li><li><p>常用属性</p><pre><code>元素类型补充块级元素：独占一行，块级元素可以设置所有属性，块级元素可以包含任何元素行内元素：同行显示，不可以设置宽、高和上下外边距，只能包含行内元素display属性block：块级元素默认值inline：行内元素的默认值inline-block：结合了行内元素与块级元素的特点，可以同行显示，也可以设置宽高none：隐藏元素text-align:对齐方式font-size：字体大小font-weight：字体加粗font-family：字体样式color：字体颜色text-decoration：下划线background-color：背景颜色background-image：背景图片background-repeat：背景图片的铺排方式background-position：背景图片位置width：宽height：高    </code></pre></li></ul><p><a id="javascript"></a> </p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;a id=&quot;css&quot;&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&quot;css&quot;&gt;&lt;a href=&quot;#css&quot; class=&quot;headerlink&quot; title=&quot;css&quot;&gt;&lt;/a&gt;css&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;概述&lt;br/&gt;&lt;br&gt;  层叠样式表，可以用来美化html页面&lt;/
+      
+    
+    </summary>
+    
+    
+      <category term="前端了解" scheme="http://www.sfim.xyz/categories/%E5%89%8D%E7%AB%AF%E4%BA%86%E8%A7%A3/"/>
+    
+    
+      <category term="学习笔记" scheme="http://www.sfim.xyz/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+      <category term="css" scheme="http://www.sfim.xyz/tags/css/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>HTML</title>
+    <link href="http://www.sfim.xyz/2020/06/26/HTML/"/>
+    <id>http://www.sfim.xyz/2020/06/26/HTML/</id>
+    <published>2020-06-26T02:07:43.000Z</published>
+    <updated>2020-06-26T02:19:46.357Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="html"><a href="#html" class="headerlink" title="html"></a>html</h3><ul><li><p>html概述<br/><br>  超文本标记语言，有自己的语法规则，由不同的标签组成，不同的标签表示不同的意义，比如图片、链接、表格等，浏览器可以识别html，目前绝大部分网页都是html写的</p></li><li><p>html结构</p></li><li><p>文件名xxx.html</p><ul><li>&lt;!DOCTYPE HTML&gt;：html5文档声明</li><li>&lt;html&gt;：根标签，所有的内容都要写到根标签中</li><li>&lt;head&gt;：存放html的基本信息，例如标签，编码等</li><li>&lt;body&gt;：存放页面的数据，在页面可以直接显示</li><li>&lt;meta&gt;：告诉浏览器用哪个编码读取html文档</li><li>&lt;title&gt;：网页的标题</li></ul></li><li><p>html语法</p><ul><li>html是标记语言，标记也叫标签、元素，标签分为开始标签和结束标签</li><li>自闭标签：如果标签内没有内容，可以合并为自闭标签，如：&lt;meta/&gt;&lt;br/&gt;&lt;hr/&gt;</li><li>注释： &lt;!– 注释内容 –&gt;</li><li>换行和空格：在html中，多个空格和换行会合并为一个空格，</li><li>如果想要换行，可以通过&lt;br/&gt;代替，空格用&amp;nbsp;代替</li><li>属性：在一个标签上可以添加多个属性，属性之间用空格隔开，属性的格式为key=”value”<br><a id="htmlbiaoqian"></a></li></ul></li><li><p>html标签</p><ul><li>文本标签&lt;font&gt;&lt;/font&gt; <br/><br>  用来包裹文本内容</li><li>标题标签&lt;h1&gt;-&lt;h6&gt; <br/><br>  从h1-h6依次变小  <br/><br>  属性align：居中</li><li>列表标签&lt;ul&gt;\ &lt;li&gt;  <br/><br>  ul：定义一个列表  <br/><br>  li：定义列表中的每一项</li><li>图片标签&lt;img …/&gt;  <br/><br>  src属性：图片的路径 <br/><br>  相对路径：从当前文档所在位置查找目标文件，../表示上级目录，./表示当前目录<br>  绝对路径：从盘符开始的路径 <br/><br>  width、height：宽、高，单位是像素 <br/><br>  alt属性：当图片无法显示时，显示的文本 <br/></li><li>超链接标签&lt;a&gt;<br>  href属性：超链接跳转的url地址 <br/><br>  target属性：在何处打开目标url，_blank表示在新页面打开，_self表示当前页面打开，_top回到顶部 <br/></li><li>表格标签&lt;table&gt;\&lt;tr&gt;\&lt;td&gt;<br>  table：定义一个表格 <br/><br>  tr：定义一行 <br/><br>  td：定义一个单元格，表头可以使用th代替 <br/><br>  colspan属性：横跨多列 <br/><br><a id="biaodanbiaoqian"></a></li></ul></li><li><p>表单标签&lt;form&gt;</p><ul><li>action属性：必须存在的属性，指表单提交的目的地</li><li>method属性：可选，决定了提交方式，默认是- get提交，可以指定为post <br/><br>get提交：直接将参数拼接到地址栏，拼接格式为：<br><a href="http://www.tmooc.cn/?username=zhangsan&amp;gender=m&amp;hoby=lanqiu&amp;hoby=ppq&amp;city=guangzhou&amp;valistr=1234" target="_blank" rel="noopener">http://www.tmooc.cn/?username=zhangsan&amp;gender=m&amp;hoby=lanqiu&amp;hoby=ppq&amp;city=guangzhou&amp;valistr=1234</a> <br/></li><li>post提交：通过底层的流提交</li><li>http协议中规定了7种提交方式，只用get和post，其他5中不常用</li><li>get和post区别：<br/><br>get：<br/></li></ul><p>  1.将参数拼接到地址栏<br/><br>  2.非常不安全<br/><br>  3.由于通过地址栏发送数据，数据量不能太大，一般不超1kb<br/><br>  post：<br/><br>  1.通过底层的流提交数据<br/><br>  2.没有将数据拼接到地址栏，相对更安全<br/><br>  3.数据大小理论上没有限制<br/></p><ul><li><p>表单中的项：<br/><br>所有的项都需要有name属性才能被提交，没有则不会被提交，提交时以key=value形式提交，name相当于键值对的key <br/></p><pre><code>input输入项：type属性：text：文本框password：密码框radio：单选框 checked=&quot;checked&quot;表示默认选中的checkbox：复选框submit：提交按钮select下拉框：select：定义下拉框option：定义下拉框中的项，selected=&quot;selected&quot;表示默认选中的</code></pre></li></ul></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;html&quot;&gt;&lt;a href=&quot;#html&quot; class=&quot;headerlink&quot; title=&quot;html&quot;&gt;&lt;/a&gt;html&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;html概述&lt;br/&gt;&lt;br&gt;  超文本标记语言，有自己的语法规则，由不同的标签组成，不同的标签表示不同的
+      
+    
+    </summary>
+    
+    
+      <category term="HTML" scheme="http://www.sfim.xyz/categories/HTML/"/>
+    
+    
+      <category term="HTML" scheme="http://www.sfim.xyz/tags/HTML/"/>
+    
+      <category term="学习笔记" scheme="http://www.sfim.xyz/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Tomcat</title>
+    <link href="http://www.sfim.xyz/2020/06/26/Tomcat/"/>
+    <id>http://www.sfim.xyz/2020/06/26/Tomcat/</id>
+    <published>2020-06-26T02:02:05.000Z</published>
+    <updated>2020-06-26T02:19:08.244Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="Tomcat"><a href="#Tomcat" class="headerlink" title="Tomcat"></a>Tomcat</h3><ul><li><p>服务器</p><ul><li>Servlet容器<ul><li>可以运行Servlet的环境称为Servlet容器</li></ul></li><li>web容器<ul><li>可以运行web应用的环境称为web容器，web应用可能是某个语言开发的，如Servlet、php等</li></ul></li><li>服务器<ul><li>服务器这里指的是软件</li><li>能够让外界访问，对外提供服务的就是服务器，web容器、Servlet容器都是服务器</li></ul></li></ul></li><li><p>常见的服务器</p><ul><li>WebLogic：BEA公司，大型，收费服务器</li><li>WebSphere：IBM公司，大型，收费服务器</li><li>Tomcat：Apache组织，小型，免费服务器</li></ul></li><li><p>tomcat的安装</p><ul><li><p>1.将tomcat软件复制到<strong>没有中文和空格</strong>的目录下</p></li><li><p>2.解压压缩文件即可</p></li><li><p>3.启动服务器：<br/><br>&emsp;运行[tomcat]/bin/startup.bat文件</p></li><li><p>报错处理：</p><ul><li>一闪而过：<br/><br>&emsp;由于tomcat是java写的，需要jdk的支持<br/><br>&emsp;需要配置jdk的环境变量<br/><br>&emsp;此电脑右键-属性-高级系统设置-环境变量-系统变量-新建-变量名：JAVA_HOME，变量值：jdk的根路径-确定—-然后找到path-新建-%JAVA_HOME%\bin—-再新建-%JAVA_HOME%\jre\bin<br/></li></ul></li><li><p>报错退出：<br/><br>&emsp;8080端口号被占用<br/><br>&emsp;查看是否已经启动tomcat<br/><br>&emsp;cmd中使用netstat -ano命令查看那个程序占用了8080端口，根据pid在任务管理器中找到程序，并关闭<br/></p></li><li><p>正常启动后可以在浏览器访问localhost:8080访问到tomcat主页<br/><br>tomcat默认端口号为8080，每次访问服务器时都需要通过8080端口号访问，如果不想加8080，可以将端口号改为80.<br/><br>打开[tomcat]/conf/server.xml，修改70行8080改为80，然后重启服务器<br/></p></li></ul></li></ul><p><a id="tomcatmulujieshao"></a></p><ul><li><p><strong>tomcat目录介绍</strong></p><pre><code>bin：可执行文件conf：配置文件目录lib：存放jar包目录logs：日志目录temp：产生临时存放的目录webapps：存放web应用的目录work：运行中产生的工作文件存放的目录</code></pre></li><li><p>web应用</p><ul><li>一个web项目称为一个web应用，web应用中可以包含动态资源和静态资源</li><li>一个只包含静态资源的web应用<br/><br>创建一个目录，目录名称为web应用名称<br/><br>在此目录中可以添加一些静态资源</li></ul></li></ul><p><a id="bushuwebyingyong"></a></p><ul><li>部署web应用<ul><li>方式一：<br/><br>在[tomcat]/conf/Catalina/localhost此目录中，创建一个xml文件，文件名称为对外访问的路径，内容为：<br/><br>&lt;Context docBase=”D:\news” /&gt; <br/><br>浏览器访问服务器：<a href="http://localhost/news/1.html" target="_blank" rel="noopener">http://localhost/news/1.html</a></li><li>方式二：<br/><br>将web应用拷贝到[tomcat]/webapps目录下即可，web应用目录的名称就是对外访问路径<br/><br>浏览器访问服务器：<a href="http://localhost/news2/1.html" target="_blank" rel="noopener">http://localhost/news2/1.html</a><br/></li></ul></li><li>缺省的web应用<ul><li>方式一：<ul><li>将xml文件的名称改为ROOT.xml</li></ul></li><li>方式二：<br/><br>直接将[tomcat]/webapps下web应用的目录名称改为ROOT即可<br/><br>优先级：方式一&gt;方式二<br/><br>再次访问时，可以省略web应用的名称，即：<a href="http://localhost/1.html" target="_blank" rel="noopener">http://localhost/1.html</a><br/></li></ul></li><li>配置web应用的主页<ul><li>只需将需要配置的主页名称改为index.html即可，即：<a href="http://localhost" target="_blank" rel="noopener">http://localhost</a></li></ul></li><li>打war包<ul><li>为什么要打war包？<br/><br>web应用直接传输，体积大，可以打成war包，体积小，方便传输<br/><br>war包可以直接放入webapps中，会自动解压发布</li><li>如何打war包？<br/><br>将所有web应用的文件添加到<strong>zip</strong>压缩文件，然后将后缀名改为war</li><li>如何使用war包？<br/><br>直接将war包放入webapps目录中，会自动解压发布</li></ul></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h3 id=&quot;Tomcat&quot;&gt;&lt;a href=&quot;#Tomcat&quot; class=&quot;headerlink&quot; title=&quot;Tomcat&quot;&gt;&lt;/a&gt;Tomcat&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;服务器&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Servlet容器&lt;ul&gt;
+&lt;li&gt;可以运行Servle
+      
+    
+    </summary>
+    
+    
+      <category term="Tomcat" scheme="http://www.sfim.xyz/categories/Tomcat/"/>
+    
+      <category term="web容器" scheme="http://www.sfim.xyz/categories/Tomcat/web%E5%AE%B9%E5%99%A8/"/>
+    
+    
+      <category term="学习笔记" scheme="http://www.sfim.xyz/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/"/>
+    
+      <category term="Tomcat" scheme="http://www.sfim.xyz/tags/Tomcat/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://www.sfim.xyz/2020/06/25/hello-world/"/>
+    <id>http://www.sfim.xyz/2020/06/25/hello-world/</id>
+    <published>2020-06-25T15:01:00.826Z</published>
+    <updated>2020-06-25T15:01:00.826Z</updated>
+    
+    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
+      
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+</feed>

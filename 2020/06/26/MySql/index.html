@@ -1,0 +1,690 @@
+<!DOCTYPE html><html lang="Chinese"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#0078E7"><meta name="author" content="TheSun"><meta name="copyright" content="TheSun"><meta name="generator" content="Hexo 4.2.1"><meta name="theme" content="hexo-theme-yun"><title>MySql | TheSun的博客</title><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@900&amp;family=Source+Code+Pro&amp;display=swap" media="none" onload="this.media='all'"><script src="//at.alicdn.com/t/font_1140697_stqaphw3j4.js" async></script><script src="https://cdn.jsdelivr.net/npm/scrollreveal/dist/scrollreveal.min.js" defer></script><script>document.addEventListener("DOMContentLoaded", () => {
+  [".post-card",".post-content img"].forEach((target)=> {
+    ScrollReveal().reveal(target);
+  })
+});
+</script><link rel="shortcut icon" type="image/svg+xml" href="/yun.svg"><link rel="mask-icon" href="/yun.svg" color="#0078E7"><link rel="alternate icon" href="/yun.ico"><link rel="preload" href="/css/hexo-theme-yun.css" as="style"><link rel="preload" href="/js/utils.js" as="script"><link rel="preload" href="/js/hexo-theme-yun.js" as="script"><link rel="prefetch" href="/js/sidebar.js" as="script"><link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin><link rel="stylesheet" href="/css/hexo-theme-yun.css"><link rel="alternate" href="/atom.xml" title="TheSun的博客"><script id="yun-config">
+    const Yun = window.Yun || {};
+    window.CONFIG = {"root":"/","title":"STuhne","version":"0.9.1","anonymous_image":"https://cdn.jsdelivr.net/gh/YunYouJun/cdn/img/avatar/none.jpg","say":{"api":"https://v1.hitokoto.cn","hitokoto":true},"fireworks":{"colors":["102, 167, 221","62, 131, 225","33, 78, 194"]}};
+  </script><meta name="description" content="MySql  -库、表、表记录的CRUD概览 库的CRUD 表的CRUD 表记录的CRUD like：模糊查询 聚合函数 分组查询   数据库备份与恢复 多表查询 笛卡尔积查询     MySql数据库概念 什么是数据库  数据库（database）是按照数据结构组织、存储和管理数据的仓库，简而言之就是存储数据的仓库  关系型数据库  发展历程：层次式数据库，网络式数据库，关系型数据库 关系型数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySql">
+<meta property="og:url" content="http://www.sfim.xyz/2020/06/26/MySql/index.html">
+<meta property="og:site_name" content="TheSun的博客">
+<meta property="og:description" content="MySql  -库、表、表记录的CRUD概览 库的CRUD 表的CRUD 表记录的CRUD like：模糊查询 聚合函数 分组查询   数据库备份与恢复 多表查询 笛卡尔积查询     MySql数据库概念 什么是数据库  数据库（database）是按照数据结构组织、存储和管理数据的仓库，简而言之就是存储数据的仓库  关系型数据库  发展历程：层次式数据库，网络式数据库，关系型数据库 关系型数">
+<meta property="article:published_time" content="2020-06-26T04:49:29.000Z">
+<meta property="article:modified_time" content="2020-06-26T04:53:25.535Z">
+<meta property="article:author" content="TheSun">
+<meta property="article:tag" content="学习笔记">
+<meta property="article:tag" content="MySql">
+<meta name="twitter:card" content="summary"><script src="/js/ui/mode.js"></script><link rel="alternate" href="/atom.xml" title="TheSun的博客" type="application/atom+xml">
+</head><body><script defer src="https://cdn.jsdelivr.net/npm/animejs@latest/anime.min.js"></script><script defer src="/js/ui/fireworks.js"></script><canvas class="fireworks"></canvas><div class="container"><a class="sidebar-toggle hty-icon-button" id="menu-btn"><div class="hamburger hamburger--spin" type="button"><span class="hamburger-box"><span class="hamburger-inner"></span></span></div></a><div class="sidebar-toggle sidebar-overlay"></div><aside class="sidebar"><script defer src="/js/sidebar.js"></script><ul class="sidebar-nav"><li class="sidebar-nav-item sidebar-nav-toc hty-icon-button sidebar-nav-active" data-target="post-toc-wrap" title="Table of Contents"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-list-ordered"></use></svg></li><li class="sidebar-nav-item sidebar-nav-overview hty-icon-button" data-target="site-overview-wrap" title="Overview"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-passport-line"></use></svg></li></ul><div class="sidebar-panel" id="site-overview-wrap"><div class="site-info fix-top"><a class="site-author-avatar" href="/about/" title="TheSun"><img width="96" loading="lazy" src="/Yun.png" alt="TheSun"></a><div class="site-author-name"><a href="/about/">TheSun</a></div><a class="site-name" href="/about/site.html">TheSun的博客</a><sub class="site-subtitle"></sub><div class="site-desciption">学无止境</div></div><nav class="site-state"><a class="site-state-item hty-icon-button icon-home" href="/" title="Home"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-home-4-line"></use></svg></span></a><div class="site-state-item"><a href="/archives/" title="Archives"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-archive-line"></use></svg></span><span class="site-state-item-count">8</span></a></div><div class="site-state-item"><a href="/categories/" title="Categories"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-2-line"></use></svg></span><span class="site-state-item-count">7</span></a></div><div class="site-state-item"><a href="/tags/" title="Tags"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="site-state-item-count">8</span></a></div><a class="site-state-item hty-icon-button" href="https://yun.yunyoujun.cn" target="_blank" rel="noopener" title="文档"><span class="site-state-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-settings-line"></use></svg></span></a></nav><hr style="margin-bottom:0.5rem"><div class="links-of-author"><a class="links-of-author-item hty-icon-button" rel="noopener" href="/atom.xml" title="RSS" target="_blank" style="color:orange"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-rss-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://github.com/1031646184" title="GitHub" target="_blank" style="color:#6e5494"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-github-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://weibo.com/u/6399499096" title="微博" target="_blank" style="color:#E6162D"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-weibo-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://music.163.com/#/user/home?id=418451782" title="网易云音乐" target="_blank" style="color:#C20C0C"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-netease-cloud-music-line"></use></svg></a><a class="links-of-author-item hty-icon-button" rel="noopener" href="https://space.bilibili.com/160964508" title="哔哩哔哩" target="_blank" style="color:#FF8EB3"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-bilibili-line"></use></svg></a></div><hr style="margin:0.5rem 1rem"><div class="links"><a class="links-item hty-icon-button" href="/links/" title="我的小伙伴们" style="color:dodgerblue"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-genderless-line"></use></svg></a></div><br><a class="links-item hty-icon-button" id="toggle-mode-btn" href="javascript:;" title="Mode" style="color: #f1cb64"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-contrast-2-line"></use></svg></a></div><div class="sidebar-panel sidebar-panel-active" id="post-toc-wrap"><div class="post-toc"><div class="post-toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#MySql"><span class="toc-number">1.</span> <span class="toc-text">MySql</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#数据库概念"><span class="toc-number">1.1.</span> <span class="toc-text">数据库概念</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SQL语言"><span class="toc-number">1.2.</span> <span class="toc-text">SQL语言</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#库的CRUD"><span class="toc-number">1.3.</span> <span class="toc-text">库的CRUD</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#表的CRUD"><span class="toc-number">1.4.</span> <span class="toc-text">表的CRUD</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#表记录的CRUD"><span class="toc-number">1.5.</span> <span class="toc-text">表记录的CRUD</span></a></li></ol></li></ol></div></div></div></aside><main class="sidebar-translate" id="content"><div id="post"><article class="post-block" itemscope itemtype="https://schema.org/Article"><link itemprop="mainEntityOfPage" href="http://www.sfim.xyz/2020/06/26/MySql/"><span hidden itemprop="author" itemscope itemtype="https://schema.org/Person"><meta itemprop="name" content="TheSun"><meta itemprop="description"></span><span hidden itemprop="publisher" itemscope itemtype="https://schema.org/Organization"><meta itemprop="name" content="TheSun的博客"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">MySql</h1><div class="post-meta"><div class="post-time" style="display:inline-block"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-calendar-line"></use></svg></span> <time title="Created: 2020-06-26 12:49:29" itemprop="dateCreated datePublished" datetime="2020-06-26T12:49:29+08:00">2020-06-26</time></div><div class="post-classify"><span class="post-category"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-folder-line"></use></svg></span> <span itemprop="about" itemscope itemtype="https://schema.org/Thing"><a class="category" href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="--text-color:var(--hty-text-color)" itemprop="url" rel="index"><span itemprop="text">数据库</span></a></span></span><span class="post-tag"><span class="post-meta-divider">-</span><a class="tag" href="/tags/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="tag-name">学习笔记</span></a><a class="tag" href="/tags/MySql/" style="--text-color:var(--hty-text-color)"><span class="post-meta-item-icon"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-price-tag-3-line"></use></svg></span><span class="tag-name">MySql</span></a></span></div></div></header><section class="post-body" itemprop="articleBody"><div class="post-content post-markdown"><ul>
+<li><a href="#MySql"><strong>MySql</strong></a><br>  -<a href="#kubiaobiaojiludeCRUDgailan">库、表、表记录的CRUD概览</a><ul>
+<li><a href="#kudeCRUD">库的CRUD</a></li>
+<li><a href="#biaodeCRUD">表的CRUD</a></li>
+<li><a href="#biaojiludeCRUD">表记录的CRUD</a><ul>
+<li><a href="#like">like：模糊查询</a></li>
+<li><a href="#juhehanshu">聚合函数</a></li>
+<li><a href="#fenzuchaxun">分组查询</a></li>
+</ul>
+</li>
+<li><a href="#shujukubenfenyuhuifu">数据库备份与恢复</a></li>
+<li><a href="#duobiaochaxun">多表查询</a></li>
+<li><a href="#dikaerjichaxun">笛卡尔积查询</a></li>
+</ul>
+</li>
+</ul>
+<p><a id="MySql"></a></p>
+<h3 id="MySql"><a href="#MySql" class="headerlink" title="MySql"></a>MySql</h3><h4 id="数据库概念"><a href="#数据库概念" class="headerlink" title="数据库概念"></a>数据库概念</h4><ul>
+<li><p>什么是数据库<br/><br>  数据库（database）是按照数据结构组织、存储和管理数据的仓库，简而言之就是存储数据的仓库</p>
+</li>
+<li><p>关系型数据库<br/></p>
+<ul>
+<li>发展历程：层次式数据库，网络式数据库，关系型数据库</li>
+<li>关系型数据库：利用表来存储数据，利用表和表之间的关系保存数据之间的关系</li>
+</ul>
+</li>
+<li><p>常见的关系型数据库<br/><br>  SQLserver<br/><br>  mysql<br/><br>  oracle<br/><br>  …<br/><br>  任何关系型数据库的语法都是sql</p>
+</li>
+<li><p>mysql介绍</p>
+<ul>
+<li>mysql是一个关系型数据库，由瑞典的mysql AB 公司开发，目前属于oracle旗下</li>
+<li>特点是体积小，速度快，成本低，开源</li>
+</ul>
+</li>
+<li><p>mysql安装配置<br/><br>  详见安装文档</p>
+</li>
+<li><p>mysql相关命令</p>
+<pre><code>登录mysql命令：mysql -uroot -p123456 -h ip
+-u：后面是用户名
+-p：后面是密码
+-h：后面是ip地址，如果是本机，ip可以省略
+退出mysql：quit    或者    exit
+启动、停止mysql服务
+启动：net start mysql
+关闭：net stop mysql</code></pre></li>
+<li><p>mysql常见概念</p>
+<ul>
+<li>数据库：一个mysql服务器中可以有多个库，一个库就是表的集合</li>
+<li>表：类似于一个excel表格，用于存储数据</li>
+<li>表记录：表中的一行数据        <h4 id="SQL语言"><a href="#SQL语言" class="headerlink" title="SQL语言"></a>SQL语言</h4></li>
+</ul>
+</li>
+<li><p>SQL概述<br>SQL指结构化查询语言，是操作关系型数据库的通用语言<br>SQL是一个标准，但是数据库厂商为了增强数据库的功能，添加了一些非标准的SQL，称为数据库的“方言”</p>
+</li>
+<li><p>SQL能干什么</p>
+<ul>
+<li>SQL可以对数据库进行增删改查</li>
+<li>SQL可以对表进行增删改查</li>
+<li>SQL可以对表记录进行增删改查</li>
+</ul>
+</li>
+</ul>
+<p><a id="kubiaobiaojiludeCRUDgailan"></a></p>
+<ul>
+<li>库的CRUD：Create、Read、Update、Delete<ul>
+<li>增：create database mydb1；</li>
+<li>删：drop database mydb1；</li>
+<li>改：alter database mydb1 character set gbk；</li>
+<li>查：show databases；\show create database mydb1;</li>
+<li>切换数据库：use mydb1; \ select database();</li>
+</ul>
+</li>
+<li>表的CRUD：<ul>
+<li>数据类型：<ul>
+<li>字符串：char(n)定长字符串，效率高、varchar(n)不定长字符串，省空间</li>
+<li>数值型：int、bigint、double</li>
+<li>日期型：date年月日、timestamp时间戳</li>
+</ul>
+</li>
+<li>字段约束：</li>
+<li>主键约束：<ul>
+<li>非空且唯一 primary key</li>
+<li>自增：auto_increment</li>
+<li>非空：not null</li>
+<li>唯一：unique</li>
+</ul>
+</li>
+<li>增：create table stu(id int primary key auto_increment,name varchar(20),score double)</li>
+<li>删：drop table stu;</li>
+<li>改：alter table add\modify\drop\rename to...</li>
+<li>查：show tables;\desc stu;\show create table stu;</li>
+</ul>
+</li>
+<li>表记录的CRUD:<ul>
+<li>增：insert into table_name values(value1,value2…);</li>
+<li>删：delete from table_name [where…];</li>
+<li>改：update table_nam****e set col_name=value [where…];</li>
+<li>查：select * from table_name;       </li>
+</ul>
+</li>
+</ul>
+<p><a id="kudeCRUD"></a></p>
+<h4 id="库的CRUD"><a href="#库的CRUD" class="headerlink" title="库的CRUD"></a>库的CRUD</h4><ul>
+<li><p>创建数据库<br/></p>
+<ul>
+<li><p>语法：create database [if not exists] db_name [character set charset_name];<br/></p>
+</li>
+<li><p>练习：<br/></p>
+<pre><code>创建一个名称为mydb1的数据库
+create database mydb1;
+create database if not exists mydb1; // 可以防止报错
+创建一个字符集为gbk的数据库
+create database mydb3 character set gbk;</code></pre></li>
+</ul>
+</li>
+<li><p>查看数据库<br/></p>
+<ul>
+<li><p>查看所有的数据库：<br/><br>  show databases;<br/></p>
+</li>
+<li><p>查看数据库的创建语句：<br>  show create database db_name;<br/></p>
+</li>
+<li><p>练习：</p>
+<pre><code>查看所有的数据库
+show databases;
+查看mydb1的建库语句
+show create database mydb1;</code></pre></li>
+</ul>
+</li>
+<li><p>修改数据库</p>
+<ul>
+<li><p>数据库的名称无法修改<br/></p>
+</li>
+<li><p>alter database db_name character set charset_name;</p>
+</li>
+<li><p>练习：</p>
+<pre><code>将mydb3的字符集修改为utf8
+alter database mydb3 character set utf8;</code></pre></li>
+</ul>
+</li>
+<li><p>删除数据库</p>
+<ul>
+<li><p>drop database [if exists] db_name;</p>
+</li>
+<li><p>练习：</p>
+<pre><code>删除mydb3数据库
+drop database mydb3;</code></pre></li>
+</ul>
+</li>
+<li><p>选择数据库</p>
+<ul>
+<li>选择数据库：use db_name;</li>
+<li>查询当前使用的数据库：select database();    </li>
+</ul>
+</li>
+</ul>
+<p><a id="biaodeCRUD"></a>    </p>
+<h4 id="表的CRUD"><a href="#表的CRUD" class="headerlink" title="表的CRUD"></a>表的CRUD</h4><ul>
+<li><p>数据类型</p>
+<ul>
+<li><p>字符串类型<br/><br>  char(n) 定长字符串<br/><br>  &ensp;&ensp;n表示字符串的最大长度不能超过这个值，n最大为255<br/><br>  &ensp;&ensp;存储时分配固定长度的空间，一般用于存储固定长度的字符串，如手机号、身份证号等，效率高<br/><br>  varchar(n) 不定长字符串<br/><br>  &ensp;&ensp;n最大为65535<br/><br>  &ensp;&ensp;存储时，先计算字符串的大小，然后再分配对应长度的空间，一般存储不固定长度的字符，如姓名、昵称等，节省空间<br/></p>
+</li>
+<li><p>数值类型</p>
+<table>
+<thead>
+<tr>
+<th>数据库</th>
+<th>Java</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>tiny</td>
+<td>intbyte</td>
+</tr>
+<tr>
+<td>small</td>
+<td>intshort</td>
+</tr>
+<tr>
+<td>int</td>
+<td>int</td>
+</tr>
+<tr>
+<td>bigint</td>
+<td>long</td>
+</tr>
+<tr>
+<td>float</td>
+<td>float</td>
+</tr>
+<tr>
+<td>double</td>
+<td>double</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>大数据类型</p>
+<ul>
+<li>blob：大二进制类型，可以存储二进制数据，如图片、音频、视频等，最大4gb</li>
+<li>text：大文本类型，可以存储大量字符数据，最大4gb</li>
+<li>text为mysql方言，在其他数据库中是clob类型</li>
+</ul>
+</li>
+<li><p>日期类型</p>
+<ul>
+<li>date：日期 2008-08-08</li>
+<li>time：时间 20:08:00</li>
+<li>datetime：日期时间  2008-08-08 20:08:00</li>
+<li>timestamp：时间戳  2008-08-08 20:08:00 底层存的是1970年1月1日到当前时间的毫秒值</li>
+</ul>
+</li>
+<li><p>逻辑型</p>
+<ul>
+<li>bit：只能取0和1</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>约束条件</p>
+<ul>
+<li><strong>主键约束</strong>：保证所约束的值必须唯一且非空<ul>
+<li>建表时添加主键约束：field datatype primary key</li>
+<li>表已存在添加主键约束：alter table table_name add primary key(field)</li>
+<li>主键自动增长：field datatype primary key auto_increment</li>
+</ul>
+</li>
+<li>唯一约束：unique 表示所约束的字段必须唯一</li>
+<li>非空约束：not null 表示所约束的字段不能为空</li>
+</ul>
+</li>
+<li><p>创建表</p>
+<ul>
+<li><p>语法：</p>
+<pre><code>create table table_name(
+field1 datatype,
+field2 datatype,
+…
+fieldn datatype
+);
+field表示字段名称
+datatype表示数据类型</code></pre></li>
+<li><p>练习：<br/><br>  创建一个employee表，字段如下：</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>整型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>name</td>
+<td>字符型</td>
+</tr>
+<tr>
+<td>gender</td>
+<td>字符型</td>
+</tr>
+<tr>
+<td>birthday</td>
+<td>日期型</td>
+</tr>
+<tr>
+<td>entry_date</td>
+<td>日期型</td>
+</tr>
+<tr>
+<td>job</td>
+<td>字符型</td>
+</tr>
+<tr>
+<td>salary</td>
+<td>浮点型</td>
+</tr>
+<tr>
+<td>resume</td>
+<td>大文本型</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>命令</p>
+<pre><code>create table employee(
+id int,
+name varchar(20),
+gender char(1),
+birthday date,
+entry_date date,
+job varchar(30),
+salary double,
+resume text
+);</code></pre></li>
+<li><p>重新创建employee表，设置id为主键自增，name唯一，gender非空</p>
+<pre><code>create table employee2(
+id int primary key auto_increment,
+name varchar(20) unique,
+gender char(1) not null,
+birthday date,
+entry_date date,
+job varchar(30),
+salary double,
+resume text
+);</code></pre></li>
+</ul>
+</li>
+<li><p>查看表</p>
+<ul>
+<li>查看所有的表<br/><br>  show tables;</li>
+<li>查看表结构<br/><br>  desc table_name;<br/></li>
+<li>查看建表语句<br>  show create table table_name;</li>
+</ul>
+</li>
+<li><p><strong>修改表</strong></p>
+<ul>
+<li>增加列：add<br/><br>  在员工表增加一个image列<ul>
+<li>alter table employee add image blob;</li>
+</ul>
+</li>
+<li>修改列：modify<br/><br>  修改job列，长度变为60<ul>
+<li>alter table employee modify job varchar(60);</li>
+</ul>
+</li>
+<li>删除列：drop<br/><br>  删除gender列<ul>
+<li>alter table employee drop gender;</li>
+</ul>
+</li>
+<li>修改列名：change<br/><br>  将列名name改为username<ul>
+<li>alter table employee change name username varchar(40);</li>
+</ul>
+</li>
+<li>修改表名：rename<br/><br>  将employee表名改为user<ul>
+<li>alter table employee rename to user;</li>
+<li>rename table user to employee;</li>
+</ul>
+</li>
+<li>修改列顺序：after<br/><br>  将image插入到id后<ul>
+<li>alter table employee modify image blob after id;</li>
+</ul>
+</li>
+<li>修改表字符集：set<br/><br>  将employee表的字符集改为gbk<br/><br>  alter table employee character set gbk;</li>
+</ul>
+</li>
+<li><p>删除表</p>
+<ul>
+<li>drop table table_name;</li>
+<li>练习：<br/><br>删除employee表<br/><br>drop table employee; </li>
+</ul>
+</li>
+</ul>
+<p><a id="biaojiludeCRUD"></a>     </p>
+<h4 id="表记录的CRUD"><a href="#表记录的CRUD" class="headerlink" title="表记录的CRUD"></a>表记录的CRUD</h4><ul>
+<li><p>增insert</p>
+<ul>
+<li><p>语法：</p>
+<ul>
+<li>insert into table_name [(col_name1,col_name2…)] values(value1,value2…);</li>
+</ul>
+</li>
+<li><p>注意：<br/><br>字符串和日期要使用单引号引起来<br/><br>如果插入的字段包含表中所有的字段，可以省略列的列表</p>
+</li>
+<li><p>练习：<br/><br>向employee2表中添加3条记录</p>
+<pre><code>insert into employee2 (id,name,gender,birthday,entry_date,job,salary,resume) values(null,&apos;tom&apos;,&apos;m&apos;,&apos;1999-9-1&apos;,&apos;2020-10-10&apos;,&apos;doctor&apos;,5000,&apos;good&apos;);
+
+insert into employee2 values(null,&apos;rose&apos;,&apos;w&apos;,&apos;2008-1-10&apos;,&apos;2019-8-10&apos;,&apos;teacher&apos;,3000,&apos;good&apos;);
+
+insert into employee2(id,name,gender) values(null,&apos;jerry&apos;,&apos;m&apos;);
+
+insert into employee2 values(null,&apos;张飞&apos;,&apos;男&apos;,&apos;2008-1-10&apos;,&apos;2019-8-10&apos;,&apos;将军&apos;,3000,&apos;猛男一个&apos;);</code></pre></li>
+<li><p><strong>乱码问题</strong>：<br/><br>mysql安装时使用的是utf-8码表，cmd窗口的默认码表是gbk</p>
+<ul>
+<li>解决方式：<ul>
+<li>在cmd中通过set names gbk;解决，这个代码意思为告诉mysql当前数据为gbk，需要使用gbk来读取<br/><br>  这种方式只在当前窗口有效</li>
+<li>mysql安装目录下找到my.ini文件57行，将utf8改为gbk<br/><br>  这种方式永久有效<br/></li>
+</ul>
+</li>
+<li>这两种方式只是改变了mysql读取数据的编码，底层保存数据的编码依然是utf-8</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>改update</p>
+<ul>
+<li><p>语法：</p>
+<ul>
+<li>update table_name set col_name=value [where …];</li>
+</ul>
+</li>
+<li><p>练习：</p>
+<pre><code>将所有员工的薪水改为2000
+update employee2 set salary=2000;
+将张飞的工资改为1000
+update employee2 set salary=1000 where name=&apos;张飞&apos;;
+将张飞的工资在原来的基础上增加500
+update employee2 set salary=salary+500 where name=&apos;张飞&apos;;</code></pre></li>
+</ul>
+</li>
+<li><p>删delete</p>
+<ul>
+<li><p>语法：</p>
+<ul>
+<li>delete from table_name [where …];</li>
+</ul>
+</li>
+<li><p>练习：</p>
+<pre><code>删除名称为tom的表记录
+delete from employee2 where name=&apos;tom&apos;;
+删除表中所有的数据
+delete from employee2;    //逐行删除
+truncate table employee2;   //直接摧毁整表，然后重建</code></pre></li>
+</ul>
+</li>
+<li><p><strong>查select</strong></p>
+<ul>
+<li><p>基本查询</p>
+<ul>
+<li><p>语法：</p>
+<ul>
+<li>select [distinct] * | col_name1,col_name2… from table_name;</li>
+<li>distinct表示去重</li>
+</ul>
+</li>
+<li><p>练习：</p>
+</li>
+<li><p>创建exam表</p>
+<pre><code>create table exam(
+id int primary key auto_increment,
+name varchar(20) not null,
+chinese double,
+math double,
+english double
+);
+insert into exam values(null,&apos;关羽&apos;,85,76,70);
+insert into exam values(null,&apos;张飞&apos;,70,75,70);
+insert into exam values(null,&apos;赵云&apos;,90,65,95);
+insert into exam values(null,&apos;张三丰&apos;,85,79,null);
+查询所有的学生信息
+select * from exam;
+查询表中所有学生的姓名和语文成绩
+select name,chinese from exam;
+查询语文成绩，并去重
+select distinct chinese from exam;
+在所有学生分数上加10分特长分显示
+select name,chinese+10,math+10,english+10 from exam;
+统计每个学生的总分
+select name,chinese+math+english from exam;
+//ifnull(english,0) 如果english为null，则用0代替
+select name,chinese+math+ifnull(english,0) from exam;
+//为列名起别名
+select name,chinese+math+ifnull(english,0) 总分 from exam;</code></pre></li>
+</ul>
+</li>
+<li><p>使用<strong>where</strong>字句查询</p>
+<ul>
+<li><p>语法：<br/><br>select [distinct] * | col_name1,col_name2… from table_name where…;</p>
+</li>
+<li><p>练习：</p>
+<pre><code>查询姓名为关羽的学生
+select * from exam where name=&apos;关羽&apos;;
+查询英语成绩大于90分的学生
+select * from exam where english&gt;90;
+查询总分大于230的学生
+select name,chinese+math+ifnull(english,0) 总分 from exam where chinese+math+ifnull(english,0)&gt;230;
+查询语文分数在80-90之间的同学
+select * from exam where chinese&lt;90 and chinese&gt;80;
+select * from exam where chinese between 80 and 90;
+查询数学分数为75、76、77的同学，再查询不在这个范围的同学
+select * from exam where math=75 or math=76 or math=77;
+select * from exam where math in (75,76,77);
+
+select * from exam where !(math=75 or math=76 or math=77);
+select * from exam where math not in (75,76,77);
+查询数学大于70，语文大于80的同学
+select * from exam where math&gt;70 and chinese&gt;80;</code></pre><p><a id="like"></a></p>
+</li>
+<li><p>like：模糊查询</p>
+<ul>
+<li><p>百分号(%)：匹配0个或多个字符</p>
+</li>
+<li><p>下划线( _ )：匹配一个字符</p>
+<pre><code>where salary like &apos;200%&apos;        //  以200开头的数字
+where salary like &apos;%200%&apos;     // 数字中包含200即可
+where salary like &apos;_200%&apos;      //  数字第二、三、四位为200
+where salary like &apos;2_%_%&apos;      // 数字以2开头，并且至少三位数
+where salary like &apos;2__3&apos;          // 以2开头，3结尾的四位数
+查询姓张的学生成绩
+select * from exam where name like &apos;张%&apos;;
+查询数学成绩中带数字6的学生
+select * from exam where math like &apos;%6%&apos;;    </code></pre></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>排序查询</p>
+<ul>
+<li><p>语法：<br/><br>  select [distinct] * | col_name1,col_name2… from table_name order by col_name asc|desc; <br/><br>  &emsp;  order by指定按照那个字段排序<br/><br>  &emsp;  asc表示升序，默认值<br/><br>  &emsp;  desc表示降序<br/><br>  &emsp;  order by写在sql语句的末尾<br/></p>
+</li>
+<li><p>练习：</p>
+<pre><code>对数学排序后输出
+select * from exam order by math;
+select * from exam order by math desc;
+对总分降序输出
+select name,chinese+math+ifnull(english,0) 总分 from exam order by 总分 desc;
+对姓张的同学总分升序输出
+select name,chinese+math+ifnull(english,0) 总分 from exam where name like &apos;张%&apos; order by 总分;
+对语文降序，如果相同，则按照数学降序
+select * from exam order by chinese desc,math desc;                       </code></pre></li>
+</ul>
+<p><a id="juhehanshu"></a></p>
+</li>
+<li><p>聚合函数<br/><br>  &emsp;聚合函数时针对列进行聚合</p>
+<ul>
+<li><p>语法：</p>
+<pre><code>求表的记录数
+select count(*) from table_name where…
+求指定列的和
+select sum(列名) from table_name where…
+求指定列的平均数
+select avg(列名) from table_name where…
+求指定列的最大值
+select max(列名) from table_name where…
+求指定列的最小值
+select min(列名) from table_name where…</code></pre></li>
+<li><p>练习：</p>
+<pre><code>统计一个班共多少学生
+select count(*) from exam;
+统计数学大于75分的学生有多少个
+select count(*) from exam where math&gt;75;
+统计一个班的数学总成绩
+select sum(math) from exam;
+统计一个班的英语平均分
+select avg(english) from exam;
+select avg(ifnull(english,0)) from exam;
+求班级总分的最高分和最低分
+select max(chinese+math+ifnull(english,0)) from exam;
+select min(chinese+math+ifnull(english,0)) from exam;
+查询总分最多的学生
+select * from exam where (chinese+math+ifnull(english,0))=(
+select max(chinese+math+ifnull(english,0)) from exam);     </code></pre></li>
+</ul>
+<p><a id="fenzuchaxun"></a></p>
+</li>
+<li><p>分组查询</p>
+<ul>
+<li><p>语法：<br/><br>  &emsp;select [distinct] * | col_name1,col_name2… from table_name group by col_name having…; <br/><br>  having用来进行分组后的过滤<br/><br>  where是分组前过滤<br/></p>
+</li>
+<li><p>练习：</p>
+<pre><code>create table orders(
+id int,
+product varchar(20),
+price double
+);
+insert into orders values(1,&apos;小米手机&apos;,900);
+insert into orders values(2,&apos;奥妙洗衣液&apos;,60);
+insert into orders values(3,&apos;乐视tv&apos;,90);
+insert into orders values(4,&apos;联想键盘&apos;,80);
+insert into orders values(5,&apos;奥妙洗衣液&apos;,60);
+insert into orders values(6,&apos;小米手机&apos;,900);
+对订单表中的商品分类后，显示每类商品的数量和总价
+select * from orders group by product;
+select product,count(*),sum(price) from orders group by product;
+查询总价大于100的商品数量和总价
+select product,count(*),sum(price) from orders group by product having sum(price)&gt;100;
+查询单价小于100，总价大于100的商品名称
+select product from orders where price&lt;100 group by product having sum(price)&gt;100;</code></pre></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><a id="shujukubeifenyuhuifu"></a></p>
+<ul>
+<li><p>数据库备份与恢复</p>
+<ul>
+<li>备份数据库<ul>
+<li>cmd窗口未登录mysql</li>
+<li>备份命令：mysqldump -uroot -p 数据库名称 &gt; 备份文件位置</li>
+<li>例如：mysqldump -uroot -p mydb1 &gt; D:/1.sql</li>
+</ul>
+</li>
+<li>恢复数据库<ul>
+<li>cmd窗口未登录mysql</li>
+<li>恢复命令：mysql -uroot -p 数据库名称 &lt; 文件位置 </li>
+<li>例如：mysql -uroot -p mydb6 &lt; D:/1.sql</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>外键约束</p>
+<ul>
+<li>外键：外键就是一张表保存另一张表的主键，用来维护表之间的关系</li>
+<li>外键约束：由数据库帮我们维护数据的完整性和一致性</li>
+<li>外键约束命令：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">foreign key(c_id) references bigclass(id)</span><br><span class="line">create table dept(id int primary key,name varchar(20));</span><br><span class="line">insert into dept values(1,&#39;财务&#39;);</span><br><span class="line"> </span><br><span class="line">create table emp(</span><br><span class="line">id int primary key,</span><br><span class="line">name varchar(20),</span><br><span class="line">d_id int,</span><br><span class="line">foreign key(d_id) references dept(id)</span><br><span class="line">);</span><br><span class="line">insert into emp values(1,&#39;zs&#39;,1);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p>多表设计</p>
+<ul>
+<li>一对一：在任意一方保存另一方的主键作为外键</li>
+<li>一对多：在多的一方保存一的主键作为外键</li>
+<li>多对多：在一张第三方表中分别保存两张表的主键作为外键</li>
+</ul>
+</li>
+</ul>
+<p><a id="duobiaochaxun"></a></p>
+<ul>
+<li><p>多表查询</p>
+<pre><code>create table dept(
+id int primary key auto_increment,
+name varchar(20)
+);
+insert into dept values(null,&apos;财务部&apos;);
+insert into dept values(null,&apos;人事部&apos;);
+insert into dept values(null,&apos;科技部&apos;);
+insert into dept values(null,&apos;销售部&apos;);
+create table emp(
+id int primary key auto_increment,
+name varchar(20),
+dept_id int
+);
+insert into emp values(null,&apos;张三&apos;,1);
+insert into emp values(null,&apos;李四&apos;,2);
+insert into emp values(null,&apos;王五&apos;,3);
+insert into emp values(null,&apos;刘能&apos;,5);</code></pre><ul>
+<li><p>练习：</p>
+<pre><code>查询员工表和部门表，列出员工信息和部门信息
+//查询的结果是笛卡尔积
+select * from emp,dept;
+//where过滤查询
+Select * from emp,dept where emp.dept_id=dept.id;
+//内链接查询
+Select * from emp inner join dept on emp.dept_id=dept.id;
+查询员工表和部门表，列出所有的员工信息（包括没有部门的员工）和对应的部门信息
+//左外连接查询
+select * from emp left join dept on emp.dept_id=dept.id;
+查询员工表和部门表，列出所有的部门信息（包括没有员工的部门）和对应的员工信息
+//右外连接查询
+select * from emp right join dept on emp.dept_id=dept.id;
+查询员工表和部门表，列出所有的员工信息（包括没有部门的员工）和所有的部门信息（包括没有员工的部门）
+//全外连接查询
+select * from emp full join dept on emp.dept_id=dept.id;
+//通过union模拟全外
+select * from emp left join dept on emp.dept_id=dept.id
+union
+select * from emp right join dept on emp.dept_id=dept.id;</code></pre></li>
+</ul>
+</li>
+</ul>
+<p><a id="dikaerjichaxun"></a> </p>
+<ul>
+<li><p>笛卡尔积查询：</p>
+<ul>
+<li><p>两张表相乘得出的结果，如果左边有m条数据，右边有n条数据，<strong>笛卡尔积会产生m*n条数据</strong>，其中大量是错误的数据，但是也包含了正确的数据</p>
+</li>
+<li><p>内连接查询：inner join … on …查询左边有，右边也有的数据</p>
+</li>
+<li><p>左外连接查询：left join … on …在内链接基础上，加上左边有，右边没有的数据</p>
+</li>
+<li><p>右外连接查询：right join … on …在内链接基础上，加上右边有，左边没有的数据</p>
+</li>
+<li><p>全外连接查询：full join … on …列出所有的数据   mysql不支持full join，可以用union模拟</p>
+</li>
+<li><p>尽量减少笛卡尔积</p>
+<pre><code>select * from orders o,product p where o.p_id=p.id and o.price&gt;3000 and p.name like &apos;%手机%&apos;;
+Select * from (select * from order where price&gt;3000) oo,(select * from product where p.name like &apos;%手机%&apos;) pp where oo.p_id=pp.id;</code></pre></li>
+</ul>
+</li>
+</ul>
+</div><ul class="post-copyright"><li class="post-copyright-author"><strong>Post author: </strong>TheSun</li><li class="post-copyright-link"><strong>Post link: </strong><a href="http://www.sfim.xyz/2020/06/26/MySql/" title="MySql">http://www.sfim.xyz/2020/06/26/MySql/</a></li><li class="post-copyright-license"><strong>Copyright Notice: </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener" title="CC BY-NC-SA 4.0 "><svg class="icon"><use xlink:href="#icon-creative-commons-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-by-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-nc-line"></use></svg><svg class="icon"><use xlink:href="#icon-creative-commons-sa-line"></use></svg></a> unless stating additionally.</li></ul></section></article><div class="post-nav"><div class="post-nav-item"></div><div class="post-nav-item"><a class="post-nav-next" href="/2020/06/26/JQuery/" rel="next" title="JQuery"><span class="post-nav-text">JQuery</span><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-right-s-line"></use></svg></a></div></div></div><div id="comment"><div class="comment-tooltip text-center"><span>点击按钮跳转 GitHub Issues 评论。</span><br><span>若没有本文 Issue，您可以使用 Comment 模版新建。</span><br><a class="hty-button hty-button--raised" id="github-issues" href="https://github.com/1031646184/1031646184.github.io/issues?q=is:issue+MySql" target="_blank" rel="noopener">GitHub Issues</a></div><div id="valine-container"></div><script src="https://cdn.jsdelivr.net/npm/valine@latest/dist/Valine.min.js"></script><script>function initValine() {
+  const valineConfig = {"enable":true,"appId":"Pdeif4xg3fu87KTqLKogrTu6-gzGzoHsz","appKey":"iy93OInSQK6HKbJbL1ISOT9R","placeholder":"Just go go","avatar":null,"pageSize":10,"visitor":false,"highlight":true,"recordIP":false,"enableQQ":true,"el":"#valine-container","lang":"chinese"}
+  valineConfig.path = window.location.pathname
+  new Valine(valineConfig)
+}
+setTimeout(initValine, 1000)</script></div></main><footer class="sidebar-translate" id="footer"><div class="copyright"><span>&copy; 2019 – 2020 </span><span class="with-love" id="animate"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-cloud-line"></use></svg></span><span class="author"> TheSun</span></div><div class="powered"><span>Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> v4.2.1</span><span class="footer-separator">|</span><span>Theme - <a rel="noopener" href="https://github.com/YunYouJun/hexo-theme-yun" target="_blank"><span>Yun</span></a> v0.9.1</span></div></footer><a class="hty-icon-button" id="goUp" aria-label="back-to-top" href="#"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-arrow-up-s-line"></use></svg><svg class="progress-circle-container" viewBox="0 0 100 100"><circle class="progress-circle" id="progressCircle" cx="50" cy="50" r="48" fill="none" stroke="#0078E7" stroke-width="2" stroke-linecap="round"></circle></svg></a></div><script defer src="/js/utils.js"></script><script defer src="/js/hexo-theme-yun.js"></script></body></html>
